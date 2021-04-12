@@ -17,7 +17,7 @@ public class FormChinh extends javax.swing.JFrame {
 
     }
    public void test(){
-       
+       int a;
    }
     /**
      * This method is called from within the constructor to initialize the form.
