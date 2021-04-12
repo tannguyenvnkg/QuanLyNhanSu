@@ -16,9 +16,7 @@ public class FormChinh extends javax.swing.JFrame {
 //        meAD.setVisible(false);
 
     }
-   public void test(){
-       int a;
-   }
+  
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
