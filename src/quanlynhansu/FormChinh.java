@@ -57,7 +57,7 @@ public class FormChinh extends javax.swing.JFrame {
 
         jMenuItem8.setText("jMenuItem8");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));

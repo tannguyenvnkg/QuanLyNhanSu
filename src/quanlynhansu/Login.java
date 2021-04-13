@@ -5,6 +5,7 @@
  */
 package quanlynhansu;
 
+import com.placeholder.PlaceHolder;
 import static java.lang.Thread.sleep;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
@@ -16,6 +17,7 @@ import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import javax.swing.Action;
 import javax.swing.Timer;
+
 /**
  *
  * @author Admin
@@ -24,10 +26,36 @@ public class Login extends javax.swing.JFrame {
 
   public Timer t;
   public ActionListener al;
-  
+  PlaceHolder p1; 
     public Login() {
-        initComponents();
-    //PBar.setVisible(false);
+           initComponents();
+     //      ============================================================
+     //<editor-fold defaultstate="collapsed" desc=" PlaceHolder "> 
+           p1 = new PlaceHolder(username, "Nhập Username");
+           p1 = new PlaceHolder(password, "Nhập Password");
+           jPanel1.setFocusable(true);
+     //</editor-fold>
+     //      ============================================================      
+     //<editor-fold defaultstate="collapsed" desc=" Load form 100% ">            
+           PBar.setVisible(false); // Ẩn load100                 
+           al  = new ActionListener(){
+           public void actionPerformed(ActionEvent ae){
+                PBar.setVisible(true);
+                if(PBar.getValue()<100){
+                      PBar.setValue(PBar.getValue()+5);
+                }else{
+                       t.stop();
+                       JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+                       FormChinh frmC = new FormChinh();
+                       frmC.setVisible(true);
+                       dispose();
+                       }
+                }
+           };
+            t = new Timer(100, al);
+     //</editor-fold>
+     //      ============================================================
+    
     }
 
     @SuppressWarnings("unchecked")
@@ -62,12 +90,10 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-key-2-50.png"))); // NOI18N
 
         username.setBackground(new java.awt.Color(204, 255, 204));
-        username.setText("AD1");
         username.setToolTipText("Nhập tài khoản vào dây.");
         username.setBorder(null);
 
         password.setBackground(new java.awt.Color(204, 255, 204));
-        password.setText("AD1");
         password.setToolTipText("Nhập mật khẩu vào đây.");
         password.setBorder(null);
 
@@ -206,50 +232,28 @@ public class Login extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-//    public void load100(){
-//    //<editor-fold defaultstate="collapsed" desc=" Load form 100% ">
-//        al  = new ActionListener(){
-//            public void actionPerformed(ActionEvent ae){
-//                PBar.setVisible(true);
-//                if(PBar.getValue()<100){
-//                    PBar.setValue(PBar.getValue()+5);
-//                }else{
-//                    t.stop();
-////                    JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
-////                    FormChinh frmC = new FormChinh();
-////                    Login frmL = new Login();
-////                    frmC.setVisible(true);
-////                    dispose();
-//                }
-//            }
-//        };
-//        t = new Timer(100, al);
-//        //</editor-fold>
-//}
+    
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-     //   t.start();
-        String user = username.getText();
-        String pass = password.getText();
-        ChucNang cn = new ChucNang();
-        try {
+        try {          
+            String user = username.getText();
+            String pass = password.getText();
+            ChucNang cn = new ChucNang();
             if(cn.login(user,pass)) // check nhanvien
             {
                 if(cn.checktrangthai()){ // check trạng thái nhân viên
-                    dispose(); // close login form
-                    FormChinh frmChinh = new FormChinh();
-                    frmChinh.setVisible(true); // show form
+                       t.start();      
 //                    frmChinh.model(); // lấy jtable
 //                    cn.shownhanvien(frmChinh.model); // show nhân viên vào jtable
-                }
-                else JOptionPane.showMessageDialog(null, "Tài Khoản Đang Bị Khóa");
+                 }else JOptionPane.showMessageDialog(null, "Tài Khoản Đang Bị Khóa");
+            }else{
+             JOptionPane.showMessageDialog(null, "Sai Tài Khoản Hoặc Mật Khẩu !!!");
             }
-            else{
-                JOptionPane.showMessageDialog(null, "Sai Tài Khoản Hoặc Mật Khẩu !!!");
+            } catch (SQLException ex) {
+                      Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                
+             
+
+        
     }//GEN-LAST:event_btnDangNhapActionPerformed
    
     /**
