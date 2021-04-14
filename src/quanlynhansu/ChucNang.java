@@ -46,12 +46,8 @@ public class ChucNang extends Database{
         connect();
         // query get nhân viên từ database sắp sếp theo chức vụ và Active
         String query = "select * from nhanvien \n" +
-                        "order by (case manhanvien\n" +
-                        "when 'AD%' then 1\n" +
-                        "when 'PM%' then 2\n" +
-                        "when 'LD%' then 3\n" +
-                        "when 'NV%' then 4\n" +
-                        "end) desc, trangthainhanvien desc"; 
+                        "order by " +
+                        "trangthainhanvien desc"; 
         model.setRowCount(0); // clear jtable
             try {
                 String trangthai = "";
@@ -67,7 +63,7 @@ public class ChucNang extends Database{
                 String address = rs.getString("DiaChi");
                 String SDT = rs.getString("SDT");
                 if(rs.getBoolean("gioitinh")) gioitinh = "Nam"; else gioitinh = "Nữ";
-                String matkhau = rs.getString("matkhau");
+                //String matkhau = rs.getString("matkhau");
                 
                 if(rs.getBoolean("trangthainhanvien")) trangthai = "Active";
                 else trangthai = "Deactive";
@@ -80,7 +76,6 @@ public class ChucNang extends Database{
             } catch (SQLException ex) {
                 Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
             }                   
-    
     }
      public String laytenchucvu(int ma) throws SQLException{
         connect();
@@ -148,7 +143,7 @@ public class ChucNang extends Database{
     public void AddNhanVien(String ten,String ngaysinh,String diachi,String sdt,boolean gioitinh, String chucvu) throws SQLException, NoSuchAlgorithmException{
         connect();
         // tạo tài khoản=========================================================================================
-        int count = 0;
+        //int count = 0;
         int machucvu = 0;
         int sex = 0;
         if(gioitinh) sex = 1;
@@ -157,13 +152,19 @@ public class ChucNang extends Database{
         while(rs.next()){
             machucvu = rs.getInt(1);
         }
-        // đếm số lượng nhân viên theo mã chức vụ
-        String demnhanvien = "Select count(*) from nhanvien";
-        ResultSet rs1 = stmt.executeQuery(demnhanvien);
-        while(rs1.next()){
-            count = rs1.getInt(1);
-        }
-        String ma = String.valueOf(count + 1); // khởi tạo tài khoản
+//        // đếm số lượng nhân viên theo mã chức vụ
+//        String demnhanvien = "Select count(*) from nhanvien";
+//        ResultSet rs1 = stmt.executeQuery(demnhanvien);
+//        while(rs1.next()){
+//            count = rs1.getInt(1);
+//        }
+        String ma = "";
+        // kiểm tra tồn tại mã
+        do {
+            int code = (int) Math.floor(((Math.random() * 899999) + 100000));
+            ma = String.valueOf(code); // khởi tạo tài khoản
+        } while (checkma(ma));
+        
         //======================================================================================
         String matkhau = MD5(ma); // cho mật khẩu và tài khoản trùng nhau
         String query = "insert into nhanvien values('"+ma+"',N'"+ten+"','"+ngaysinh+"',N'"+diachi+"','"+sdt+"',"+sex+",'"+matkhau+"',1,"+machucvu+")";
