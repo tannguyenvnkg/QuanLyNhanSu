@@ -7,6 +7,8 @@
 //</editor-fold>
 package quanlynhansu;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 import java.util.*;
 import java.text.SimpleDateFormat;
@@ -23,8 +25,9 @@ import javax.swing.table.DefaultTableModel;
 public class ChucNang extends Database{
     
     //<editor-fold defaultstate="collapsed" desc="Login">
-    public  boolean login(String user, String pass) throws SQLException{
+    public  boolean login(String user, String pass) throws SQLException, NoSuchAlgorithmException{
         connect(); // kết nối database
+        pass = MD5(pass);
         String query = "select * from NHANVIEN where manhanvien= '"+user+"' and matkhau = '"+pass+"'";
         ResultSet rs = stmt.executeQuery(query);
         if(rs.next()){
@@ -118,7 +121,7 @@ public class ChucNang extends Database{
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc="Thêm Xóa Sửa Active Nhân Viên">
     //Thêm Xóa Sửa Nhân Viên
-    public void UpdateNhanVien(String ma,String ten,String ngaysinh,String diachi,String sdt,boolean gioitinh,String matkhau,String chucvu) throws SQLException{
+    public void UpdateNhanVien(String ma,String ten,String ngaysinh,String diachi,String sdt,boolean gioitinh,String matkhau,String chucvu) throws SQLException, NoSuchAlgorithmException{
         connect();
         int machucvu = 0;
         int sex = 0;
@@ -128,6 +131,7 @@ public class ChucNang extends Database{
         while(rs.next()){
             machucvu = rs.getInt(1); // set mã nhân viên
         }
+        matkhau = MD5(matkhau);
         String query = 
             "Update nhanvien set machucvu = '"+machucvu+"',"
                 + "tennhanvien = N'"+ten+"' , sdt='"+sdt+"', ngaysinh = '"+ngaysinh+"',"
@@ -135,7 +139,7 @@ public class ChucNang extends Database{
         stmt.execute(query);
             JOptionPane.showMessageDialog(null, "Update Nhân Viên Thành Công");
     }
-    public void AddNhanVien(String ten,String ngaysinh,String diachi,String sdt,boolean gioitinh, String chucvu) throws SQLException{
+    public void AddNhanVien(String ten,String ngaysinh,String diachi,String sdt,boolean gioitinh, String chucvu) throws SQLException, NoSuchAlgorithmException{
         connect();
         // tạo tài khoản=========================================================================================
         int count = 0;
@@ -155,10 +159,10 @@ public class ChucNang extends Database{
         }
         String ma = String.valueOf(count + 1); // khởi tạo tài khoản
         //======================================================================================
-        String matkhau = ma; // cho mật khẩu và tài khoản trùng nhau
+        String matkhau = MD5(ma); // cho mật khẩu và tài khoản trùng nhau
         String query = "insert into nhanvien values('"+ma+"',N'"+ten+"','"+ngaysinh+"',N'"+diachi+"','"+sdt+"',"+sex+",'"+matkhau+"',1,"+machucvu+")";
         stmt.execute(query);//chạy query
-        JOptionPane.showMessageDialog(null, "Add Nhân Viên Thành Công \n Tài Khoản : "+ma+"\n Mật Khẩu : "+matkhau+"");
+        JOptionPane.showMessageDialog(null, "Add Nhân Viên Thành Công \n Tài Khoản : "+ma+"\n Mật Khẩu : "+ma+"");
     }
     public void DeleteNhanVien(String ma) throws SQLException{
         connect();
@@ -194,6 +198,16 @@ public class ChucNang extends Database{
     //</editor-fold>
     //==========================================================================================================
     
-     
+     public String MD5(String pass) throws NoSuchAlgorithmException{
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(pass.getBytes());
+        byte[] byteData = md.digest();
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < byteData.length; i++) {
+            String hex = Integer.toHexString(0xff & byteData[i]);
+           sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+        }
+         return sb.toString();
+     }
 }
 

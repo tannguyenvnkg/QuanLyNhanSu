@@ -5,6 +5,7 @@
  */
 package quanlynhansu;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -427,6 +428,8 @@ public class NhanSu extends javax.swing.JFrame {
             }else JOptionPane.showMessageDialog(null, "Tên Nhân Viên Không Được Để trống!!!");
             
         } catch (SQLException ex) {
+            Logger.getLogger(NhanSu.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(NhanSu.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
