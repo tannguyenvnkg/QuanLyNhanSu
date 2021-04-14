@@ -73,7 +73,7 @@ public class ChucNang extends Database{
                 else trangthai = "Deactive";
                 
                 chucvu = laytenchucvu(rs.getInt("machucvu"));
-                String tbData[] = {ma,ten,gioitinh,ngaysinh,SDT,address,matkhau,chucvu,trangthai}; 
+                String tbData[] = {ma,ten,gioitinh,ngaysinh,SDT,address,chucvu,trangthai}; 
                 model.addRow(tbData);
                 }
 
@@ -91,10 +91,16 @@ public class ChucNang extends Database{
         }
         return null;
      }
-     
-    // show nhân viên lên jtable
-   
-//</editor-fold>
+     // add combobox tại quản lý
+    public void showcombobox(DefaultComboBoxModel aBoxModel) throws SQLException{
+        connect();
+        String query = "Select * from chucvu";
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {                
+            aBoxModel.addElement(rs.getString("Tenchucvu"));
+        }
+    } 
+    //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc="Đổi Pass">
     // đổi pass
@@ -176,16 +182,7 @@ public class ChucNang extends Database{
         stmt.execute(query);
         JOptionPane.showMessageDialog(null, "Active Nhân Viên Thành Công");
     }
-    // add combobox tại quản lý
-    public void showcombobox(DefaultComboBoxModel aBoxModel) throws SQLException{
-            connect();
-            String query = "Select * from chucvu";
-            ResultSet rs = stmt.executeQuery(query);
-            while (rs.next()) {                
-                aBoxModel.addElement(rs.getString("Tenchucvu"));
-                System.out.println(rs.getString("Tenchucvu"));
-            }
-    }   
+      
     public boolean checkma(String ma) throws SQLException{
         connect();
         String query = "Select* from NhanVien";

@@ -117,7 +117,7 @@ public class NhanSu extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã ", "Họ Tên", "Giới Tính", "Ngày Sinh", "SDT", "Địa Chỉ", "Mật Khẩu", "Chức Vụ", "Trạng Thái"
+                "Mã ", "Họ Tên", "Giới Tính", "Ngày Sinh", "SDT", "Địa Chỉ", "Chức Vụ", "Trạng Thái"
             }
         ));
         tablenhanvien.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -372,7 +372,7 @@ public class NhanSu extends javax.swing.JFrame {
             txtngaysinh.setDate(date.parse((model.getValueAt(a, 3)).toString()));
             txtsdt.setText(model.getValueAt(a, 4).toString());
             txtdiachi.setText(model.getValueAt(a, 5).toString());
-            txtmatkhau.setText(model.getValueAt(a, 6).toString());
+          //  txtmatkhau.setText(model.getValueAt(a, 6).toString());
             cboChucVu.setSelectedItem(model.getValueAt(a, 7).toString());
         } catch (ParseException ex) {
             Logger.getLogger(NhanSu.class.getName()).log(Level.SEVERE, null, ex);
