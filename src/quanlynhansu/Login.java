@@ -90,10 +90,12 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-key-2-50.png"))); // NOI18N
 
         username.setBackground(new java.awt.Color(204, 255, 204));
+        username.setText("AD1");
         username.setToolTipText("Nhập tài khoản vào dây.");
         username.setBorder(null);
 
         password.setBackground(new java.awt.Color(204, 255, 204));
+        password.setText("AD1");
         password.setToolTipText("Nhập mật khẩu vào đây.");
         password.setBorder(null);
 

@@ -120,60 +120,26 @@ public class ChucNang extends Database{
     //Thêm Xóa Sửa Nhân Viên
     public void UpdateNhanVien(String ma,String ten,String ngaysinh,String diachi,String sdt,boolean gioitinh,String matkhau,String chucvu) throws SQLException{
         connect();
-        String manv = ma;
-        int machucvu = 0,machucvunhanvien = 0;
-        boolean check = false;
+        int machucvu = 0;
         int sex = 0;
-        if(gioitinh) sex = 1;
-        //<editor-fold defaultstate="collapsed" desc="Lấy mã NV trong form nhân sự và trong database để so sánh">
-        String getidchucvu = "select machucvu from chucvu where tenchucvu = N'"+chucvu+"'";
+        if(gioitinh) sex = 1; // set giới tính
+        String getidchucvu = "select machucvu from chucvu where tenchucvu = N'"+chucvu+"'"; // lấy mã nhân viên
         ResultSet rs = stmt.executeQuery(getidchucvu);
         while(rs.next()){
-            machucvu = rs.getInt(1);
+            machucvu = rs.getInt(1); // set mã nhân viên
         }
-        String getidchucvunhanvien = "select machucvu from nhanvien where manhanvien = '"+ma+"'";
-        rs = stmt.executeQuery(getidchucvunhanvien);
-        while (rs.next()) {            
-            machucvunhanvien = rs.getInt(1);
-        }
-        //</editor-fold>
-        if(!(machucvu == machucvunhanvien)){ // kiểm tra mã chức vụ khác nhau thì đặt lại mã nhân viên
-            check = true;
-            String firstma = "", secondma = "";
-            int count = 0;
-            if(machucvu == 1) firstma = "AD";
-            else if(machucvu == 2) firstma = "PM";
-            else if(machucvu == 3) firstma = "LD";
-            else if(machucvu == 4) firstma = "NV";
-
-            String demnhanvien = "Select count(*) from nhanvien where machucvu = N'"+machucvu+"'";
-            ResultSet rs1 = stmt.executeQuery(demnhanvien);
-            while(rs1.next()){
-                count = rs1.getInt(1);
-            }
-            secondma = String.valueOf(count+1); // số báo danh
-            manv = firstma + secondma; // khởi tạo tài khoản
-            matkhau = manv;
-        }
-        //======================================================================================
         String query = 
-            "Update nhanvien set manhanvien = '"+manv+"', machucvu = '"+machucvu+"',"
+            "Update nhanvien set machucvu = '"+machucvu+"',"
                 + "tennhanvien = N'"+ten+"' , sdt='"+sdt+"', ngaysinh = '"+ngaysinh+"',"
                 + "diachi=N'"+diachi+"',matkhau='"+matkhau+"', gioitinh = "+sex+" where manhanvien='"+ma+"'";
         stmt.execute(query);
-        if(!check)
             JOptionPane.showMessageDialog(null, "Update Nhân Viên Thành Công");
-        else JOptionPane.showMessageDialog(null, "Update Nhân Viên Thành Công \n "
-                + "Tài Khoản Mới của bạn là:\n "
-                + "Tài Khoản: "+manv+"\n "
-                + "Mật Khẩu: "+matkhau+"");
     }
     public void AddNhanVien(String ten,String ngaysinh,String diachi,String sdt,boolean gioitinh, String chucvu) throws SQLException{
         connect();
         // tạo tài khoản=========================================================================================
         int count = 0;
         int machucvu = 0;
-        String firstma = "", secondma = "";
         int sex = 0;
         if(gioitinh) sex = 1;
         String getidchucvu = "select machucvu from chucvu where tenchucvu = N'"+chucvu+"'";
@@ -181,18 +147,13 @@ public class ChucNang extends Database{
         while(rs.next()){
             machucvu = rs.getInt(1);
         }
-        if(machucvu == 1) firstma = "AD";
-        else if(machucvu == 2) firstma = "PM";
-        else if(machucvu == 3) firstma = "LD";
-        else if(machucvu == 4) firstma = "NV";
         // đếm số lượng nhân viên theo mã chức vụ
-        String demnhanvien = "Select count(*) from nhanvien where machucvu = N'"+machucvu+"'";
+        String demnhanvien = "Select count(*) from nhanvien";
         ResultSet rs1 = stmt.executeQuery(demnhanvien);
         while(rs1.next()){
             count = rs1.getInt(1);
         }
-        secondma = String.valueOf(count+1); // số báo danh
-        String ma = firstma + secondma; // khởi tạo tài khoản
+        String ma = String.valueOf(count + 1); // khởi tạo tài khoản
         //======================================================================================
         String matkhau = ma; // cho mật khẩu và tài khoản trùng nhau
         String query = "insert into nhanvien values('"+ma+"',N'"+ten+"','"+ngaysinh+"',N'"+diachi+"','"+sdt+"',"+sex+",'"+matkhau+"',1,"+machucvu+")";
