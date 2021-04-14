@@ -197,7 +197,7 @@ public class ChucNang extends Database{
     }
     //</editor-fold>
     //==========================================================================================================
-    
+    //<editor-fold defaultstate="collapsed" desc="mã hóa MD5">
      public String MD5(String pass) throws NoSuchAlgorithmException{
         MessageDigest md = MessageDigest.getInstance("MD5");
         md.update(pass.getBytes());
@@ -209,5 +209,7 @@ public class ChucNang extends Database{
         }
          return sb.toString();
      }
+     //</editor-fold>
+    //==========================================================================================================
 }
 
