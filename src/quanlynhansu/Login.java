@@ -46,10 +46,10 @@ public class Login extends javax.swing.JFrame {
                       PBar.setValue(PBar.getValue()+5);
                 }else{
                        t.stop();
-                       JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
-                       FormChinh frmC = new FormChinh();
-                       frmC.setVisible(true);
-                       dispose();
+//                       JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+//                       FormChinh frmC = new FormChinh();
+//                       frmC.setVisible(true);
+//                       dispose();
                        }
                 }
            };
@@ -85,18 +85,18 @@ public class Login extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-among-us-100.png"))); // NOI18N
 
-        jPanel2.setBackground(new java.awt.Color(255, 204, 204));
+        jPanel2.setBackground(new java.awt.Color(214, 255, 255));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-account-50.png"))); // NOI18N
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-key-2-50.png"))); // NOI18N
 
-        username.setBackground(new java.awt.Color(255, 204, 204));
+        username.setBackground(new java.awt.Color(214, 255, 255));
         username.setText("AD1");
         username.setToolTipText("Nhập tài khoản vào dây.");
         username.setBorder(null);
 
-        password.setBackground(new java.awt.Color(255, 204, 204));
+        password.setBackground(new java.awt.Color(214, 255, 255));
         password.setText("AD1");
         password.setToolTipText("Nhập mật khẩu vào đây.");
         password.setBorder(null);
@@ -247,7 +247,11 @@ public class Login extends javax.swing.JFrame {
             if(cn.login(user,pass)) // check nhanvien
             {
                 if(cn.checktrangthai()){ // check trạng thái nhân viên
-                       t.start();      
+//                       t.start(); 
+                       JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+                       FormChinh frmC = new FormChinh();
+                       frmC.setVisible(true);
+                       dispose();
 //                    frmChinh.model(); // lấy jtable
 //                    cn.shownhanvien(frmChinh.model); // show nhân viên vào jtable
                  }else JOptionPane.showMessageDialog(null, "Tài Khoản Đang Bị Khóa");
@@ -259,9 +263,6 @@ public class Login extends javax.swing.JFrame {
             } catch (NoSuchAlgorithmException ex) {
           Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
       }
-             
-
-        
     }//GEN-LAST:event_btnDangNhapActionPerformed
    
     /**

@@ -69,6 +69,7 @@ public class FormProfile extends javax.swing.JFrame {
         txtidchucvu = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(236, 255, 255));
 
@@ -110,7 +111,7 @@ public class FormProfile extends javax.swing.JFrame {
                 .addGap(8, 8, 8))
         );
 
-        jPanel3.setBackground(new java.awt.Color(204, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(255, 255, 204));
 
         jLabel18.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel18.setText("Thông tin chỉnh sửa khác vui lòng liên hệ :");
@@ -124,8 +125,8 @@ public class FormProfile extends javax.swing.JFrame {
         jLabel22.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel22.setText("+ Email : ");
 
-        jSeparator3.setBackground(new java.awt.Color(102, 204, 255));
-        jSeparator3.setForeground(new java.awt.Color(102, 204, 255));
+        jSeparator3.setBackground(new java.awt.Color(255, 204, 102));
+        jSeparator3.setForeground(new java.awt.Color(255, 204, 51));
         jSeparator3.setOrientation(javax.swing.SwingConstants.VERTICAL);
 
         jLabel23.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

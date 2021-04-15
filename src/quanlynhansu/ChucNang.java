@@ -104,20 +104,20 @@ public class ChucNang extends Database{
         return passString.equals(NhanVien.getInstance().matkhau);
     }
     public void ChangePass(String newpass,String confirmpass) throws SQLException, NoSuchAlgorithmException{
-        if(newpass.equals(confirmpass)){
-            if (newpass.equals("") || confirmpass.equals("") ) {
-                JOptionPane.showMessageDialog(null, "Mật Khẩu Không Được Để Trống !!!");
-            } else {
+        if(newpass.equals(confirmpass)){   //check pass mới giống nhau
+//            if (newpass.equals("") || confirmpass.equals("") ) {
+//                JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin !!!");
+//            } else {
                 connect();
                 newpass = MD5(newpass);
                 String query = "update NHANVIEN set MatKhau = '"+newpass+"' where manhanvien = '"+NhanVien.getInstance().manhanvien+"'";
                 stmt.execute(query);
                 NhanVien.getInstance().setMatkhau(newpass);
-                JOptionPane.showMessageDialog(null, "Đổi Mật Khẩu Thành Công");
-            }
+                JOptionPane.showMessageDialog(null, "Đổi Mật Khẩu Thành Công"); 
+//            }
         }
         else {
-            JOptionPane.showMessageDialog(null, "Mật Khẩu Không Khớp!!!");
+            JOptionPane.showMessageDialog(null, "Mật Khẩu Không Khớp!!!");  //check mật khẩu mới khác nhau
         }
     }
 //</editor-fold>
