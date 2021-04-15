@@ -60,7 +60,7 @@ public class FormChinh extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(236, 255, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -73,8 +73,12 @@ public class FormChinh extends javax.swing.JFrame {
             .addGap(0, 497, Short.MAX_VALUE)
         );
 
+        jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
+
+        MnTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
+        MnTaiKhoan.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MnTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-name-tag-50.png"))); // NOI18N
-        MnTaiKhoan.setText("Tài Khoản");
+        MnTaiKhoan.setText(" Tài Khoản   ");
 
         MnItThongTin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-admin-settings-male-30.png"))); // NOI18N
         MnItThongTin.setText("Hồ Sơ");
@@ -97,8 +101,10 @@ public class FormChinh extends javax.swing.JFrame {
 
         jMenuBar1.add(MnTaiKhoan);
 
+        MnNhanVien.setBackground(new java.awt.Color(255, 255, 255));
+        MnNhanVien.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.white, null, null));
         MnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-account-50.png"))); // NOI18N
-        MnNhanVien.setText("Nhân Viên");
+        MnNhanVien.setText("  Nhân Viên     ");
 
         jMenuItem3.setText("Tạo Công Việc");
         MnNhanVien.add(jMenuItem3);
@@ -108,8 +114,10 @@ public class FormChinh extends javax.swing.JFrame {
 
         jMenuBar1.add(MnNhanVien);
 
+        MnLeader.setBackground(new java.awt.Color(255, 255, 255));
+        MnLeader.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MnLeader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-contact-details-50.png"))); // NOI18N
-        MnLeader.setText("Leader");
+        MnLeader.setText("   Leader    ");
 
         jMenuItem2.setText("Tạo Công Việc");
         MnLeader.add(jMenuItem2);
@@ -122,8 +130,10 @@ public class FormChinh extends javax.swing.JFrame {
 
         jMenuBar1.add(MnLeader);
 
+        MnPM.setBackground(new java.awt.Color(255, 255, 255));
+        MnPM.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MnPM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-walter-white-50.png"))); // NOI18N
-        MnPM.setText("PM");
+        MnPM.setText("    PM       ");
 
         jMenuItem10.setText("Thêm Nhân Sự");
         MnPM.add(jMenuItem10);
@@ -136,8 +146,10 @@ public class FormChinh extends javax.swing.JFrame {
 
         jMenuBar1.add(MnPM);
 
+        MnAdmin.setBackground(new java.awt.Color(255, 255, 255));
+        MnAdmin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MnAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-vip-50.png"))); // NOI18N
-        MnAdmin.setText("Quản Trị Viên");
+        MnAdmin.setText("   Quản Trị Viên");
 
         jMenu7.setText("Quản Lý Nhân Sự");
 

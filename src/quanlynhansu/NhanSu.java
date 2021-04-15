@@ -82,35 +82,24 @@ public class NhanSu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(255, 241, 241));
+        jPanel1.setBackground(new java.awt.Color(236, 255, 255));
 
         jLabel3.setText("SĐT : ");
         jLabel3.setToolTipText("");
 
         jLabel4.setText("Ngày Sinh :");
 
-        txtmanhanvien.setBackground(new java.awt.Color(238, 238, 238));
-
         jLabel5.setText("Địa Chỉ :");
-
-        txttennhanvien.setBackground(new java.awt.Color(238, 238, 238));
 
         jLabel6.setText("Chức Vụ :");
 
-        txtsdt.setBackground(new java.awt.Color(238, 238, 238));
-
         jLabel7.setText("Mật Khẩu :");
 
-        cboChucVu.setBackground(new java.awt.Color(238, 238, 238));
         cboChucVu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cboChucVuActionPerformed(evt);
             }
         });
-
-        txtdiachi.setBackground(new java.awt.Color(238, 238, 238));
-
-        txtmatkhau.setBackground(new java.awt.Color(238, 238, 238));
 
         tablenhanvien.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -127,6 +116,7 @@ public class NhanSu extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tablenhanvien);
 
+        btnActive.setBackground(new java.awt.Color(255, 255, 255));
         btnActive.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-key-2-30.png"))); // NOI18N
         btnActive.setText("Active");
         btnActive.setToolTipText("");
@@ -140,6 +130,7 @@ public class NhanSu extends javax.swing.JFrame {
 
         jLabel2.setText("Họ Tên :");
 
+        btngetback.setBackground(new java.awt.Color(255, 255, 255));
         btngetback.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-undo-30.png"))); // NOI18N
         btngetback.setText("Trở Lại");
         btngetback.setMinimumSize(new java.awt.Dimension(91, 25));
@@ -150,8 +141,9 @@ public class NhanSu extends javax.swing.JFrame {
             }
         });
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(236, 255, 255));
 
+        btnDelete.setBackground(new java.awt.Color(255, 255, 255));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-denied-30.png"))); // NOI18N
         btnDelete.setText("Xóa");
         btnDelete.setPreferredSize(new java.awt.Dimension(91, 40));
@@ -161,6 +153,7 @@ public class NhanSu extends javax.swing.JFrame {
             }
         });
 
+        btnSave.setBackground(new java.awt.Color(255, 255, 255));
         btnSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-checked-user-male-30.png"))); // NOI18N
         btnSave.setText("Lưu");
         btnSave.setPreferredSize(new java.awt.Dimension(91, 40));
@@ -170,6 +163,7 @@ public class NhanSu extends javax.swing.JFrame {
             }
         });
 
+        btnAddNew.setBackground(new java.awt.Color(255, 255, 255));
         btnAddNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-add-user-female-30.png"))); // NOI18N
         btnAddNew.setText("Thêm Mới");
         btnAddNew.setPreferredSize(new java.awt.Dimension(91, 40));
