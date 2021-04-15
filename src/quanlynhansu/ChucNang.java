@@ -99,15 +99,17 @@ public class ChucNang extends Database{
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc="Đổi Pass">
     // đổi pass
-    public boolean checkpass(String passString){
+    public boolean checkpass(String passString) throws NoSuchAlgorithmException{
+        passString = MD5(passString);
         return passString.equals(NhanVien.getInstance().matkhau);
     }
-    public void ChangePass(String newpass,String confirmpass) throws SQLException{
+    public void ChangePass(String newpass,String confirmpass) throws SQLException, NoSuchAlgorithmException{
         if(newpass.equals(confirmpass)){
             if (newpass.equals("") || confirmpass.equals("") ) {
                 JOptionPane.showMessageDialog(null, "Mật Khẩu Không Được Để Trống !!!");
             } else {
                 connect();
+                newpass = MD5(newpass);
                 String query = "update NHANVIEN set MatKhau = '"+newpass+"' where manhanvien = '"+NhanVien.getInstance().manhanvien+"'";
                 stmt.execute(query);
                 NhanVien.getInstance().setMatkhau(newpass);

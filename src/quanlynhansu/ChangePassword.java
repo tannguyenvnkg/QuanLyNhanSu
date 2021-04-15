@@ -5,6 +5,7 @@
  */
 package quanlynhansu;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -159,6 +160,8 @@ public class ChangePassword extends javax.swing.JFrame {
                     clear();
                 }
         } catch (SQLException ex) {
+            Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnOKActionPerformed
