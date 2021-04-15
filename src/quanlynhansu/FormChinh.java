@@ -233,6 +233,7 @@ public class FormChinh extends javax.swing.JFrame {
             }
             else {
                 NhanSu ns = new NhanSu();
+                dispose();
                 ns.setVisible(true); // show form
                 ns.model(); //lấy jtable
                 ns.comboBoxModel(); // lấy combobox
