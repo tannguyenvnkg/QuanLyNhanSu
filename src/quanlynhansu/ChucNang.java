@@ -105,16 +105,26 @@ public class ChucNang extends Database{
     }
     public void ChangePass(String newpass,String confirmpass) throws SQLException, NoSuchAlgorithmException{
         if(newpass.equals(confirmpass)){   //check pass mới giống nhau
+            //<editor-fold defaultstate="collapsed" desc="Giữ code này">
+
 //            if (newpass.equals("") || confirmpass.equals("") ) {
 //                JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin !!!");
-//            } else {
-                connect();
-                newpass = MD5(newpass);
+//            } else {}
+//</editor-fold>
+            connect();
+            newpass = MD5(newpass);
+            String checktrungpass = NhanVien.getInstance().getManhanvien();
+            checktrungpass = MD5(checktrungpass);
+            if(checktrungpass.equals(newpass)){
+                JOptionPane.showMessageDialog(null, "Mật Khẩu Không Được Trùng Với Tài Khoản");
+            }
+            else {
                 String query = "update NHANVIEN set MatKhau = '"+newpass+"' where manhanvien = '"+NhanVien.getInstance().manhanvien+"'";
                 stmt.execute(query);
                 NhanVien.getInstance().setMatkhau(newpass);
                 JOptionPane.showMessageDialog(null, "Đổi Mật Khẩu Thành Công"); 
-//            }
+            }
+            
         }
         else {
             JOptionPane.showMessageDialog(null, "Mật Khẩu Không Khớp!!!");  //check mật khẩu mới khác nhau
@@ -129,18 +139,34 @@ public class ChucNang extends Database{
         int machucvu = 0;
         int sex = 0;
         if(gioitinh) sex = 1; // set giới tính
-        String getidchucvu = "select machucvu from chucvu where tenchucvu = N'"+chucvu+"'"; // lấy mã nhân viên
+        //<editor-fold defaultstate="collapsed" desc="Check mật khẩu không được trùng với password">
+        String querycheckmatkhau = "select matkhau from nhanvien where manhanvien = '"+ma+"'";
+        String checktrungma = ma;
+        checktrungma = MD5(checktrungma);
+        ResultSet rspass = stmt.executeQuery(querycheckmatkhau);
+        while (rspass.next()){            
+            if (rspass.getString(1).equals(checktrungma)) 
+                JOptionPane.showMessageDialog(null, "Mật Khẩu Và Tài Khoản Không Được Trùng");
+            else{
+                //</editor-fold>
+                //<editor-fold defaultstate="collapsed" desc="Set Chức Vụ">
+        String getidchucvu = "select machucvu from chucvu where tenchucvu = N'"+chucvu+"'"; // lấy mã chức vụ
         ResultSet rs = stmt.executeQuery(getidchucvu);
         while(rs.next()){
-            machucvu = rs.getInt(1); // set mã nhân viên
+            machucvu = rs.getInt(1); // set mã nhân viên gán với chức vụ
         }
-        matkhau = MD5(matkhau);
-        String query = 
-            "Update nhanvien set machucvu = '"+machucvu+"',"
-                + "tennhanvien = N'"+ten+"' , sdt='"+sdt+"', ngaysinh = '"+ngaysinh+"',"
-                + "diachi=N'"+diachi+"',matkhau='"+matkhau+"', gioitinh = "+sex+" where manhanvien='"+ma+"'";
-        stmt.execute(query);
-            JOptionPane.showMessageDialog(null, "Update Nhân Viên Thành Công");
+        //</editor-fold>
+                matkhau = MD5(matkhau); // mã hóa pass
+                String query = 
+                    "Update nhanvien set machucvu = '"+machucvu+"',"
+                        + "tennhanvien = N'"+ten+"' , sdt='"+sdt+"', ngaysinh = '"+ngaysinh+"',"
+                        + "diachi=N'"+diachi+"',matkhau='"+matkhau+"', gioitinh = "+sex+" where manhanvien='"+ma+"'";
+                stmt.execute(query);
+                    JOptionPane.showMessageDialog(null, "Update Nhân Viên Thành Công");
+            }
+        }
+        
+        
     }
     public void AddNhanVien(String ten,String ngaysinh,String diachi,String sdt,boolean gioitinh, String chucvu) throws SQLException, NoSuchAlgorithmException{
         connect();
@@ -175,9 +201,17 @@ public class ChucNang extends Database{
     }
     public void DeleteNhanVien(String ma) throws SQLException{
         connect();
-        String query = "update nhanvien set trangthainhanvien = 0 where manhanvien = '"+ma+"'";
-        stmt.execute(query);
-        JOptionPane.showMessageDialog(null, "Delete Nhân Viên Thành Công");
+        String querycheck = "select trangthainhanvien from nhanvien where manhanvien = '"+ma+"'";
+        ResultSet rs = stmt.executeQuery(querycheck);
+        while (rs.next()) {            
+            if(!rs.getBoolean("trangthainhanvien")) JOptionPane.showMessageDialog(null, "Bạn Đã Xóa Nhân Viên Này!!!");
+            else {
+                String query = "update nhanvien set trangthainhanvien = 0 where manhanvien = '"+ma+"'";
+                stmt.execute(query);
+                JOptionPane.showMessageDialog(null, "Delete Nhân Viên Thành Công");
+            }
+        }
+        
     }
     public void ActiveNhanVien(String ma) throws SQLException{
         connect();
