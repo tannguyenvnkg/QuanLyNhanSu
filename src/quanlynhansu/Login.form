@@ -178,6 +178,9 @@
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="d6" type="rgb"/>
                 </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="16" style="1"/>
+                </Property>
                 <Property name="text" type="java.lang.String" value="AD1"/>
                 <Property name="toolTipText" type="java.lang.String" value="Nh&#x1ead;p t&#xe0;i kho&#x1ea3;n v&#xe0;o d&#xe2;y."/>
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
@@ -189,6 +192,9 @@
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="d6" type="rgb"/>
+                </Property>
+                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+                  <Font name="Times New Roman" size="16" style="1"/>
                 </Property>
                 <Property name="text" type="java.lang.String" value="AD1"/>
                 <Property name="toolTipText" type="java.lang.String" value="Nh&#x1ead;p m&#x1ead;t kh&#x1ea9;u v&#xe0;o &#x111;&#xe2;y."/>
@@ -203,7 +209,7 @@
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Times New Roman" size="14" style="1"/>
+                  <Font name="Times New Roman" size="16" style="1"/>
                 </Property>
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/Image/Favorites/Edit/icons8-redo-30.png"/>

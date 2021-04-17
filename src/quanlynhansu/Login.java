@@ -92,17 +92,19 @@ public class Login extends javax.swing.JFrame {
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-key-2-50.png"))); // NOI18N
 
         username.setBackground(new java.awt.Color(214, 255, 255));
+        username.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         username.setText("AD1");
         username.setToolTipText("Nhập tài khoản vào dây.");
         username.setBorder(null);
 
         password.setBackground(new java.awt.Color(214, 255, 255));
+        password.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         password.setText("AD1");
         password.setToolTipText("Nhập mật khẩu vào đây.");
         password.setBorder(null);
 
         btnDangNhap.setBackground(new java.awt.Color(255, 255, 255));
-        btnDangNhap.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
+        btnDangNhap.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         btnDangNhap.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-redo-30.png"))); // NOI18N
         btnDangNhap.setText("Đăng Nhập");
         btnDangNhap.addActionListener(new java.awt.event.ActionListener() {

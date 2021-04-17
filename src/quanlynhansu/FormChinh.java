@@ -29,6 +29,7 @@ public class FormChinh extends javax.swing.JFrame {
         jSeparator4 = new javax.swing.JSeparator();
         jMenuItem8 = new javax.swing.JMenuItem();
         jPanel1 = new javax.swing.JPanel();
+        jLabel1 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         MnTaiKhoan = new javax.swing.JMenu();
         MnItThongTin = new javax.swing.JMenuItem();
@@ -62,15 +63,24 @@ public class FormChinh extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(236, 255, 255));
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel1.setText("Thiết Lập Thông Tin Show lên đây.");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 904, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(397, 397, 397)
+                .addComponent(jLabel1)
+                .addContainerGap(466, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 467, Short.MAX_VALUE)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(216, 216, 216)
+                .addComponent(jLabel1)
+                .addContainerGap(235, Short.MAX_VALUE))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(255, 255, 255));
@@ -78,8 +88,11 @@ public class FormChinh extends javax.swing.JFrame {
         MnTaiKhoan.setBackground(new java.awt.Color(255, 255, 255));
         MnTaiKhoan.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MnTaiKhoan.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-name-tag-50.png"))); // NOI18N
-        MnTaiKhoan.setText(" Tài Khoản   ");
+        MnTaiKhoan.setText("Tài Khoản  ");
+        MnTaiKhoan.setActionCommand(" Tài Khoản  ");
+        MnTaiKhoan.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
 
+        MnItThongTin.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         MnItThongTin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-admin-settings-male-30.png"))); // NOI18N
         MnItThongTin.setText("Hồ Sơ");
         MnItThongTin.addActionListener(new java.awt.event.ActionListener() {
@@ -90,6 +103,7 @@ public class FormChinh extends javax.swing.JFrame {
         MnTaiKhoan.add(MnItThongTin);
         MnTaiKhoan.add(jSeparator1);
 
+        MnItLogout.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         MnItLogout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-sign-out-30.png"))); // NOI18N
         MnItLogout.setText("Đăng Xuất");
         MnItLogout.addActionListener(new java.awt.event.ActionListener() {
@@ -104,11 +118,15 @@ public class FormChinh extends javax.swing.JFrame {
         MnNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         MnNhanVien.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.white, null, null));
         MnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-account-50.png"))); // NOI18N
-        MnNhanVien.setText("  Nhân Viên     ");
+        MnNhanVien.setText(" Nhân Viên  ");
+        MnNhanVien.setActionCommand(" Nhân Viên  ");
+        MnNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
 
+        jMenuItem3.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jMenuItem3.setText("Tạo Công Việc");
         MnNhanVien.add(jMenuItem3);
 
+        jMenuItem4.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jMenuItem4.setText("Gửi Báo Cáo");
         MnNhanVien.add(jMenuItem4);
 
@@ -117,14 +135,19 @@ public class FormChinh extends javax.swing.JFrame {
         MnLeader.setBackground(new java.awt.Color(255, 255, 255));
         MnLeader.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MnLeader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-contact-details-50.png"))); // NOI18N
-        MnLeader.setText("   Leader    ");
+        MnLeader.setText(" Leader  ");
+        MnLeader.setActionCommand(" Leader  ");
+        MnLeader.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
 
+        jMenuItem2.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jMenuItem2.setText("Tạo Công Việc");
         MnLeader.add(jMenuItem2);
 
+        jMenuItem9.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jMenuItem9.setText("Thêm Nhân Sự");
         MnLeader.add(jMenuItem9);
 
+        jMenuItem6.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jMenuItem6.setText("Gửi Báo Cáo");
         MnLeader.add(jMenuItem6);
 
@@ -133,7 +156,9 @@ public class FormChinh extends javax.swing.JFrame {
         MnPM.setBackground(new java.awt.Color(255, 255, 255));
         MnPM.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MnPM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-walter-white-50.png"))); // NOI18N
-        MnPM.setText("    PM       ");
+        MnPM.setText(" PM  ");
+        MnPM.setActionCommand(" PM  ");
+        MnPM.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
 
         jMenuItem10.setText("Thêm Nhân Sự");
         MnPM.add(jMenuItem10);
@@ -149,10 +174,13 @@ public class FormChinh extends javax.swing.JFrame {
         MnAdmin.setBackground(new java.awt.Color(255, 255, 255));
         MnAdmin.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MnAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-vip-50.png"))); // NOI18N
-        MnAdmin.setText("   Quản Trị Viên");
+        MnAdmin.setText(" Quản Trị Viên");
+        MnAdmin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
 
         jMenu7.setText("Quản Lý Nhân Sự");
+        jMenu7.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
 
+        MnItNS.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         MnItNS.setText("Nhân Sự");
         MnItNS.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -164,7 +192,9 @@ public class FormChinh extends javax.swing.JFrame {
         MnAdmin.add(jMenu7);
 
         jMenu2.setText("Danh Sách");
+        jMenu2.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
 
+        jMenuItem7.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jMenuItem7.setText("Danh Sách Dự Án");
         jMenuItem7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -173,15 +203,18 @@ public class FormChinh extends javax.swing.JFrame {
         });
         jMenu2.add(jMenuItem7);
 
+        jMenuItem15.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jMenuItem15.setText("Danh Sách Nhân Sự");
         jMenu2.add(jMenuItem15);
 
+        jMenuItem16.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jMenuItem16.setText("Danh Sách Báo Cáo");
         jMenu2.add(jMenuItem16);
 
         MnAdmin.add(jMenu2);
         MnAdmin.add(jSeparator3);
 
+        jMenuItem1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jMenuItem1.setText("Thống kê");
         MnAdmin.add(jMenuItem1);
 
@@ -193,11 +226,11 @@ public class FormChinh extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -291,6 +324,7 @@ public class FormChinh extends javax.swing.JFrame {
     private javax.swing.JMenu MnNhanVien;
     private javax.swing.JMenu MnPM;
     private javax.swing.JMenu MnTaiKhoan;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
