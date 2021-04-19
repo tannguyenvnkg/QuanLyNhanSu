@@ -238,9 +238,13 @@ public class FormChinh extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void MnItThongTinActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItThongTinActionPerformed
-        FormProfile frmProfile = new FormProfile();
-        frmProfile.showProfile();
-        frmProfile.show();
+        try {
+            FormProfile frmProfile = new FormProfile();
+            frmProfile.showProfile();
+            frmProfile.show();
+        } catch (SQLException ex) {
+            Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_MnItThongTinActionPerformed
 
     private void MnItLogoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MnItLogoutActionPerformed

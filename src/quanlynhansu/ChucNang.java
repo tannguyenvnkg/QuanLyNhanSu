@@ -27,11 +27,14 @@ public class ChucNang extends Database{
     //<editor-fold defaultstate="collapsed" desc="Login">
     public  boolean login(String user, String pass) throws SQLException, NoSuchAlgorithmException{
         connect(); // kết nối database
+       // Statement stmt1 = conn.createStatement();
         pass = MD5(pass);
         String query = "select * from NHANVIEN where manhanvien= '"+user+"' and matkhau = '"+pass+"'";
+        //String querychucvu = "select * from THOIGIANNHANVIEC where manhanvien = '"+user+"'";
         ResultSet rs = stmt.executeQuery(query);
-        if(rs.next()){
-            NhanVien.getInstance().LuuNhanVien(rs);
+        ResultSet rs1 = getTHOIGIANNHANVIEC(user);
+        if(rs.next() && rs1.next()){
+            NhanVien.getInstance().LuuNhanVien(rs,rs1);
             return true;
         }
         else return false;
@@ -42,8 +45,9 @@ public class ChucNang extends Database{
 //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc=" show nhân viên lên jtable">
-     public void shownhanvien(DefaultTableModel model){
+     public void shownhanvien(DefaultTableModel model) throws SQLException{
         connect();
+        //Statement stmt1 = conn.createStatement();
         // query get nhân viên từ database sắp sếp theo chức vụ và Active
         String query = "select * from nhanvien \n" +
                         "order by " +
@@ -57,20 +61,23 @@ public class ChucNang extends Database{
                 
                 ResultSet rs = stmt.executeQuery(query);
                 while(rs.next()){
-                String ma = rs.getString("manhanvien");
-                String ten = rs.getString("tennhanvien");
-                String ngaysinh = date.format(rs.getDate("ngaysinh"));
-                String address = rs.getString("DiaChi");
-                String SDT = rs.getString("SDT");
-                if(rs.getBoolean("gioitinh")) gioitinh = "Nam"; else gioitinh = "Nữ";
-                //String matkhau = rs.getString("matkhau");
-                
-                if(rs.getBoolean("trangthainhanvien")) trangthai = "Active";
-                else trangthai = "Deactive";
-                
-                chucvu = laytenchucvu(rs.getInt("machucvu"));
-                String tbData[] = {ma,ten,gioitinh,ngaysinh,SDT,address,chucvu,trangthai}; 
-                model.addRow(tbData);
+                    String ma = rs.getString("manhanvien");
+                    String ten = rs.getString("tennhanvien");
+                    String ngaysinh = date.format(rs.getDate("ngaysinh"));
+                    String address = rs.getString("DiaChi");
+                    String SDT = rs.getString("SDT");
+                    if(rs.getBoolean("gioitinh")) gioitinh = "Nam"; else gioitinh = "Nữ";
+                    //String matkhau = rs.getString("matkhau");
+
+                    if(rs.getBoolean("trangthainhanvien")) trangthai = "Active";
+                    else trangthai = "Deactive";
+
+                    ResultSet rs1 = getTHOIGIANNHANVIEC(ma);
+                    while (rs1.next()) {                        
+                        chucvu = laytenchucvu(rs1.getInt("machucvu"));
+                    }
+                    String tbData[] = {ma,ten,gioitinh,ngaysinh,SDT,address,chucvu,trangthai}; 
+                    model.addRow(tbData);
                 }
 
             } catch (SQLException ex) {
@@ -103,7 +110,7 @@ public class ChucNang extends Database{
         passString = MD5(passString);
         return passString.equals(NhanVien.getInstance().matkhau);
     }
-    public void ChangePass(String newpass,String confirmpass) throws SQLException, NoSuchAlgorithmException{
+    public boolean ChangePass(String newpass,String confirmpass) throws SQLException, NoSuchAlgorithmException{
         if(newpass.equals(confirmpass)){   //check pass mới giống nhau
             //<editor-fold defaultstate="collapsed" desc="Giữ code này">
 
@@ -117,56 +124,45 @@ public class ChucNang extends Database{
             checktrungpass = MD5(checktrungpass);
             if(checktrungpass.equals(newpass)){
                 JOptionPane.showMessageDialog(null, "Mật Khẩu Không Được Trùng Với Tài Khoản");
+                return false;
             }
             else {
                 String query = "update NHANVIEN set MatKhau = '"+newpass+"' where manhanvien = '"+NhanVien.getInstance().manhanvien+"'";
                 stmt.execute(query);
                 NhanVien.getInstance().setMatkhau(newpass);
-                JOptionPane.showMessageDialog(null, "Đổi Mật Khẩu Thành Công"); 
+                JOptionPane.showMessageDialog(null, "Đổi Mật Khẩu Thành Công");
+                return true;
             }
-            
         }
         else {
             JOptionPane.showMessageDialog(null, "Mật Khẩu Không Khớp!!!");  //check mật khẩu mới khác nhau
         }
+        return false;
     }
 //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc="Thêm Xóa Sửa Active Nhân Viên">
     //Thêm Xóa Sửa Nhân Viên
-    public void UpdateNhanVien(String ma,String ten,String ngaysinh,String diachi,String sdt,boolean gioitinh,String matkhau,String chucvu) throws SQLException, NoSuchAlgorithmException{
+    public void UpdateNhanVien(String ma,String ten,String ngaysinh,String diachi,String sdt,boolean gioitinh,String chucvu) throws SQLException, NoSuchAlgorithmException{
         connect();
+        //Statement stmt1 = conn.createStatement();
         int machucvu = 0;
         int sex = 0;
         if(gioitinh) sex = 1; // set giới tính
-        //<editor-fold defaultstate="collapsed" desc="Check mật khẩu không được trùng với password">
-        String querycheckmatkhau = "select matkhau from nhanvien where manhanvien = '"+ma+"'";
-        String checktrungma = ma;
-        checktrungma = MD5(checktrungma);
-        ResultSet rspass = stmt.executeQuery(querycheckmatkhau);
-        while (rspass.next()){            
-            if (rspass.getString(1).equals(checktrungma)) 
-                JOptionPane.showMessageDialog(null, "Mật Khẩu Và Tài Khoản Không Được Trùng");
-            else{
-                //</editor-fold>
-                //<editor-fold defaultstate="collapsed" desc="Set Chức Vụ">
+        //<editor-fold defaultstate="collapsed" desc="Set Chức Vụ">
         String getidchucvu = "select machucvu from chucvu where tenchucvu = N'"+chucvu+"'"; // lấy mã chức vụ
         ResultSet rs = stmt.executeQuery(getidchucvu);
         while(rs.next()){
             machucvu = rs.getInt(1); // set mã nhân viên gán với chức vụ
         }
         //</editor-fold>
-                matkhau = MD5(matkhau); // mã hóa pass
-                String query = 
-                    "Update nhanvien set machucvu = '"+machucvu+"',"
-                        + "tennhanvien = N'"+ten+"' , sdt='"+sdt+"', ngaysinh = '"+ngaysinh+"',"
-                        + "diachi=N'"+diachi+"',matkhau='"+matkhau+"', gioitinh = "+sex+" where manhanvien='"+ma+"'";
-                stmt.execute(query);
-                    JOptionPane.showMessageDialog(null, "Update Nhân Viên Thành Công");
-            }
-        }
-        
-        
+        String query = 
+            "Update nhanvien set "
+                + "tennhanvien = N'"+ten+"' , sdt='"+sdt+"', ngaysinh = '"+ngaysinh+"',"
+                + "diachi=N'"+diachi+"', gioitinh = "+sex+" where manhanvien='"+ma+"'";
+        stmt.execute(query);
+        addTHOIGIANNHANVIEC(ma, machucvu);
+            JOptionPane.showMessageDialog(null, "Update Nhân Viên Thành Công");
     }
     public void AddNhanVien(String ten,String ngaysinh,String diachi,String sdt,boolean gioitinh, String chucvu) throws SQLException, NoSuchAlgorithmException{
         connect();
@@ -192,11 +188,13 @@ public class ChucNang extends Database{
             int code = (int) Math.floor(((Math.random() * 899999) + 100000));
             ma = String.valueOf(code); // khởi tạo tài khoản
         } while (checkma(ma));
-        
         //======================================================================================
         String matkhau = MD5(ma); // cho mật khẩu và tài khoản trùng nhau
-        String query = "insert into nhanvien values('"+ma+"',N'"+ten+"','"+ngaysinh+"',N'"+diachi+"','"+sdt+"',"+sex+",'"+matkhau+"',1,"+machucvu+")";
+        String query = "insert into nhanvien values('"+ma+"',N'"+ten+"','"+ngaysinh+"',N'"+diachi+"','"+sdt+"',"+sex+",'"+matkhau+"',1)";
+        //String query1 = "insert into THOIGIANNHANVIEC values('"+ma+"',"+machucvu+",current_timestamp)";
         stmt.execute(query);//chạy query
+        addTHOIGIANNHANVIEC(ma, machucvu);
+        //stmt.execute(query1);
         JOptionPane.showMessageDialog(null, "Add Nhân Viên Thành Công \n Tài Khoản : "+ma+"\n Mật Khẩu : "+ma+"");
     }
     public void DeleteNhanVien(String ma) throws SQLException{
@@ -219,7 +217,6 @@ public class ChucNang extends Database{
         stmt.execute(query);
         JOptionPane.showMessageDialog(null, "Active Nhân Viên Thành Công");
     }
-      
     public boolean checkma(String ma) throws SQLException{
         connect();
         String query = "Select* from NhanVien";
@@ -228,6 +225,14 @@ public class ChucNang extends Database{
             if(rs.getString("manhanvien").equals(ma)) return true; // tồn tại mã nhân viên thì update
         }
         return false; // không tồn tại thì add
+    }
+    public void resetpassword(String ma) throws NoSuchAlgorithmException, SQLException{
+        connect();
+        String matkhau = ma;
+        String matkhaumd5 = MD5(ma);
+        String query = "update nhanvien set matkhau = '"+matkhaumd5+"' where manhanvien = '"+ma+"'";
+        stmt.execute(query);
+        JOptionPane.showMessageDialog(null, "Reset mật khẩu thành công \n Mật khẩu mới : "+matkhau+"");
     }
     //</editor-fold>
     //==========================================================================================================
@@ -245,5 +250,18 @@ public class ChucNang extends Database{
      }
      //</editor-fold>
     //==========================================================================================================
+    //<editor-fold defaultstate="collapsed" desc="Linh Tinh">
+    public ResultSet getTHOIGIANNHANVIEC(String ma) throws SQLException{
+        connect();
+        String querychucvu = "select top 1 * from THOIGIANNHANVIEC where manhanvien = '"+ma+"' order by ngaynhancv desc";
+        ResultSet rs = stmt.executeQuery(querychucvu);
+        return rs;
+    }
+    public void addTHOIGIANNHANVIEC(String ma, int machucvu) throws SQLException{
+        connect();
+        String query1 = "insert into THOIGIANNHANVIEC values('"+ma+"',"+machucvu+",current_timestamp)";
+        stmt.execute(query1);
+    }
+    //</editor-fold>
 }
 

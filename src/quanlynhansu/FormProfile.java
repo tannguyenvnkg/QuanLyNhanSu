@@ -6,6 +6,7 @@
 package quanlynhansu;
 
 import java.sql.Date;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -442,7 +443,7 @@ public class FormProfile extends javax.swing.JFrame {
            //<editor-fold defaultstate="collapsed" desc=" Mở Form ">
            ChangePassword cp = new ChangePassword();
            cp.setVisible(true);
-           dispose();
+           //dispose();
            //</editor-fold>
     }//GEN-LAST:event_btnchangepasswordActionPerformed
 
@@ -485,34 +486,37 @@ public class FormProfile extends javax.swing.JFrame {
             }
         });
     }
-    public  void showProfile(){
+    public  void showProfile() throws SQLException{
+        ChucNang cn = new ChucNang();
         String manhanvien = NhanVien.getInstance().getManhanvien();
         String tennhanvien = NhanVien.getInstance().getTennhanvien();
         Date ngaysinh = NhanVien.getInstance().getNgaysinh();
         int idchucvu = NhanVien.getInstance().getMachucvu();
+        String tenchucvu = cn.laytenchucvu(idchucvu);
         boolean gioitinh = NhanVien.getInstance().getGioitinh();
         String diachi = NhanVien.getInstance().getDiachi();
         String sdt = NhanVien.getInstance().getSdt();
-        settext(manhanvien, tennhanvien,ngaysinh,idchucvu,gioitinh,diachi,sdt);
+        settext(manhanvien, tennhanvien,ngaysinh,tenchucvu,gioitinh,diachi,sdt);
     }
-    public  void settext(String manhanvien,String tennhanvien,Date ngaysinh,int idchucvu,boolean gioitinh,String diachi,String sdt){
+    public  void settext(String manhanvien,String tennhanvien,Date ngaysinh,String tenchucvu,boolean gioitinh,String diachi,String sdt){
         txtmanhanvien.setText(manhanvien);
         txtten.setText(tennhanvien);
         txtngaysinh.setText(ngaysinh.toString());
-        switch (idchucvu) {
-            case 1:
-                txtidchucvu.setText("Admin");
-                break;
-            case 2:
-                txtidchucvu.setText("Project Manager");
-                break;
-            case 3:
-                txtidchucvu.setText("Leader");
-                break;
-            default:
-                txtidchucvu.setText("Nhân Viên");
-                break;
-        }
+        txtidchucvu.setText(tenchucvu);
+//        switch (idchucvu) {
+//            case 1:
+//                txtidchucvu.setText("Admin");
+//                break;
+//            case 2:
+//                txtidchucvu.setText("Project Manager");
+//                break;
+//            case 3:
+//                txtidchucvu.setText("Leader");
+//                break;
+//            default:
+//                txtidchucvu.setText("Nhân Viên");
+//                break;
+//        }
         if(gioitinh) rdbnam.setSelected(true);
         else rdbnu.setSelected(true);
         txtdiachi.setText(diachi);

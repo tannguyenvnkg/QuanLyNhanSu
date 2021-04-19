@@ -99,7 +99,7 @@ public class Login extends javax.swing.JFrame {
 
         password.setBackground(new java.awt.Color(214, 255, 255));
         password.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        password.setText("AD1");
+        password.setText("AD2");
         password.setToolTipText("Nhập mật khẩu vào đây.");
         password.setBorder(null);
 
@@ -249,13 +249,11 @@ public class Login extends javax.swing.JFrame {
             if(cn.login(user,pass)) // check nhanvien
             {
                 if(cn.checktrangthai()){ // check trạng thái nhân viên
-//                       t.start(); 
-                       JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
-                       FormChinh frmC = new FormChinh();
-                       frmC.setVisible(true);
-                       dispose();
-//                    frmChinh.model(); // lấy jtable
-//                    cn.shownhanvien(frmChinh.model); // show nhân viên vào jtable
+                    //t.start();
+                    JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
+                    FormChinh frmC = new FormChinh();
+                    frmC.setVisible(true);
+                    dispose();
                  }else JOptionPane.showMessageDialog(null, "Tài Khoản Đang Bị Khóa");
             }else{
              JOptionPane.showMessageDialog(null, "Sai Tài Khoản Hoặc Mật Khẩu !!!");

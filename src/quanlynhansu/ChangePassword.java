@@ -171,11 +171,13 @@ public class ChangePassword extends javax.swing.JFrame {
                 String confirmpass = txtConfirmNewPass.getText();
                 if (pass.equals("") || newpass.equals("") || confirmpass.equals("")) {
                    JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin !!!"); //check thông tin trống
-                }else                                                 
-                if(cn.checkpass(pass)) {                   
-                   cn.ChangePass(newpass, confirmpass);// đổi pass
-                   clear();
-                } else{     
+                }else if(cn.checkpass(pass)) {
+                    if(cn.ChangePass(newpass, confirmpass)){ // đổi pass   
+                        dispose(); // đóng form
+                    }
+                    clear();
+                }                                             
+                else{     
                    JOptionPane.showMessageDialog(null, "Sai Mật Khẩu Cũ");  //check pass cũ sai
                    clear();         
                 }            
@@ -185,16 +187,10 @@ public class ChangePassword extends javax.swing.JFrame {
             Logger.getLogger(ChangePassword.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnOKActionPerformed
-              
     
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-           FormProfile frmP = new FormProfile();
-           frmP.showProfile();
-           frmP.setVisible(true);
-           dispose();
+        dispose();
     }//GEN-LAST:event_btnExitActionPerformed
-            
-    
     private void txtConfirmNewPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmNewPassActionPerformed
         
     }//GEN-LAST:event_txtConfirmNewPassActionPerformed

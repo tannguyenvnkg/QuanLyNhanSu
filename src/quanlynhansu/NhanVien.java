@@ -30,6 +30,15 @@ public class NhanVien {
     }
     
     //<editor-fold defaultstate="collapsed" desc=" Get Set ">
+
+    public Date getNgaynhancv() {
+        return ngaynhancv;
+    }
+
+    public void setNgaynhancv(Date ngaynhancv) {
+        this.ngaynhancv = ngaynhancv;
+    }
+
     public boolean getTrangthai() {
         return trangthai;
     }
@@ -102,7 +111,7 @@ public class NhanVien {
     }
 //    </editor-fold>
     //<editor-fold defaultstate="collapsed" desc=" Constructor ">
-    public void SetNhanVien(String ma,String ten,Date date,String address,String SDT,boolean Sex,String pass,boolean Trangthai,int idchucvu){
+    public void SetNhanVien(String ma,String ten,Date date,String address,String SDT,boolean Sex,String pass,boolean Trangthai,int idchucvu, Date ngaynhanviec){
         this.manhanvien = ma;
         this.tennhanvien = ten;
         this.ngaysinh = date;
@@ -112,6 +121,7 @@ public class NhanVien {
         this.matkhau = pass;
         this.trangthai = Trangthai;
         this.machucvu = idchucvu;
+        this.ngaynhancv = ngaynhanviec;
     }
     public void  SetEmptyNhanVien(){
         manhanvien = "";
@@ -123,10 +133,11 @@ public class NhanVien {
         matkhau = "";
         trangthai = false;
         machucvu = 0;
+        ngaynhancv = null;
     }
     //</editor-fold>
     // lưu nhân viên đăng nhập từ excute SQL
-    public void LuuNhanVien(ResultSet rs) throws SQLException{
+    public void LuuNhanVien(ResultSet rs, ResultSet rs1) throws SQLException{
         String ma = rs.getString("manhanvien");
         String ten = rs.getString("tennhanvien");
         Date date = rs.getDate("ngaysinh");
@@ -135,8 +146,9 @@ public class NhanVien {
         boolean Sex = rs.getBoolean("gioitinh");
         String pass = rs.getString("matkhau");
         boolean Trangthai = rs.getBoolean("trangthainhanvien");
-        int idchucvu = rs.getInt("machucvu");
-        SetNhanVien(ma, ten, date, address, SDT, Sex, pass, Trangthai, idchucvu);
+        int idchucvu = rs1.getInt("machucvu");
+        Date ngaynhanviec = rs1.getDate("ngaynhancv");
+        SetNhanVien(ma, ten, date, address, SDT, Sex, pass, Trangthai, idchucvu, ngaynhanviec);
     }
     
     String manhanvien = "";
@@ -148,4 +160,5 @@ public class NhanVien {
     String matkhau = "";
     boolean trangthai = false;
     int machucvu = 0;
+    Date ngaynhancv = null;
 }

@@ -84,7 +84,6 @@
               <Image iconType="3" name="/Image/Favorites/Avartar/icons8-account-50.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value=" Nh&#xe2;n Vi&#xea;n  "/>
-            <Property name="actionCommand" type="java.lang.String" value=" Nh&#xe2;n Vi&#xea;n  "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="18" style="1"/>
             </Property>
@@ -122,7 +121,6 @@
               <Image iconType="3" name="/Image/Favorites/Avartar/icons8-contact-details-50.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value=" Leader  "/>
-            <Property name="actionCommand" type="java.lang.String" value=" Leader  "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="18" style="1"/>
             </Property>
@@ -168,7 +166,6 @@
               <Image iconType="3" name="/Image/Favorites/Avartar/icons8-walter-white-50.png"/>
             </Property>
             <Property name="text" type="java.lang.String" value=" PM  "/>
-            <Property name="actionCommand" type="java.lang.String" value=" PM  "/>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Times New Roman" size="18" style="1"/>
             </Property>
