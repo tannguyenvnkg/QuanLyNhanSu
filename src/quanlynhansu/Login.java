@@ -248,7 +248,12 @@ public class Login extends javax.swing.JFrame {
             ChucNang cn = new ChucNang();
             if(cn.login(user,pass)) // check nhanvien
             {
-                if(cn.checktrangthai()){ // check trạng thái nhân viên
+                if (cn.FirstLogin(user,pass)) {
+                    JOptionPane.showMessageDialog(null, "Bạn Phải Đổi Mật Khẩu Ở Lần Đăng Nhập Đầu Tiên");
+                    ChangePassword cp = new ChangePassword();
+                    cp.show();
+                }
+                else if(cn.checktrangthai()){ // check trạng thái nhân viên
                     //t.start();
                     JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
                     FormChinh frmC = new FormChinh();

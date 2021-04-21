@@ -42,6 +42,11 @@ public class ChucNang extends Database{
     public boolean checktrangthai() {
         return NhanVien.getInstance().getTrangthai();
     }
+    public boolean FirstLogin(String user, String pass) throws NoSuchAlgorithmException{
+        user = MD5(user);
+        if(user.equals(NhanVien.getInstance().getMatkhau())) return true;
+        return false;
+    }
 //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc=" show nhân viên lên jtable">
@@ -199,13 +204,14 @@ public class ChucNang extends Database{
     }
     public void DeleteNhanVien(String ma) throws SQLException{
         connect();
+        Statement stmt1 = conn.createStatement();
         String querycheck = "select trangthainhanvien from nhanvien where manhanvien = '"+ma+"'";
         ResultSet rs = stmt.executeQuery(querycheck);
         while (rs.next()) {            
             if(!rs.getBoolean("trangthainhanvien")) JOptionPane.showMessageDialog(null, "Bạn Đã Xóa Nhân Viên Này!!!");
             else {
                 String query = "update nhanvien set trangthainhanvien = 0 where manhanvien = '"+ma+"'";
-                stmt.execute(query);
+                stmt1.execute(query);
                 JOptionPane.showMessageDialog(null, "Delete Nhân Viên Thành Công");
             }
         }
