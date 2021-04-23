@@ -23,7 +23,7 @@ import javax.swing.table.DefaultTableModel;
  * @author tanng
  */
 public class ChucNang extends Database{
-    
+    DefaultTableModel modeltemp = null;
     //<editor-fold defaultstate="collapsed" desc="Login">
     public  boolean login(String user, String pass) throws SQLException, NoSuchAlgorithmException{
         connect(); // kết nối database
@@ -50,14 +50,14 @@ public class ChucNang extends Database{
 //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc=" show nhân viên lên jtable">
-     public void shownhanvien(DefaultTableModel model) throws SQLException{
+    public void shownhanvien_Admin(DefaultTableModel modeltemp){
         connect();
         //Statement stmt1 = conn.createStatement();
         // query get nhân viên từ database sắp sếp theo chức vụ và Active
         String query = "select * from nhanvien \n" +
                         "order by " +
                         "trangthainhanvien desc"; 
-        model.setRowCount(0); // clear jtable
+        modeltemp.setRowCount(0); // clear jtable
             try {
                 String trangthai = "";
                 String chucvu = "";
@@ -82,14 +82,59 @@ public class ChucNang extends Database{
                         chucvu = laytenchucvu(rs1.getInt("machucvu"));
                     }
                     String tbData[] = {ma,ten,gioitinh,ngaysinh,SDT,address,chucvu,trangthai}; 
-                    model.addRow(tbData);
+                    modeltemp.addRow(tbData);
                 }
 
             } catch (SQLException ex) {
                 Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
-            }                   
+            }      
     }
-     public String laytenchucvu(int ma) throws SQLException{
+    public void shownhanvien_PM(DefaultTableModel modeltemp){
+        connect();
+        //Statement stmt1 = conn.createStatement();
+        // query get nhân viên từ database sắp sếp theo chức vụ và Active
+        String query = "select * from nhanvien \n" +
+                        "order by " +
+                        "manhanvien asc,trangthainhanvien desc"; 
+        modeltemp.setRowCount(0); // clear jtable
+            try {
+                String trangthai = "";
+                String chucvu = "";
+                String gioitinh = "";
+                SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+                
+                ResultSet rs = stmt.executeQuery(query);
+                while(rs.next()){
+                    String ma = rs.getString("manhanvien");
+                    String ten = rs.getString("tennhanvien");
+                    String ngaysinh = date.format(rs.getDate("ngaysinh"));
+                    String address = rs.getString("DiaChi");
+                    String SDT = rs.getString("SDT");
+                    if(rs.getBoolean("gioitinh")) gioitinh = "Nam"; else gioitinh = "Nữ";
+                    //String matkhau = rs.getString("matkhau");
+
+                    if(rs.getBoolean("trangthainhanvien")) trangthai = "Active";
+                    else trangthai = "Deactive";
+
+                    ResultSet rs1 = getTHOIGIANNHANVIEC(ma);
+                    while (rs1.next()) {                        
+                        chucvu = laytenchucvu(rs1.getInt("machucvu"));
+                    }
+                    if(chucvu.equals("Admin") || chucvu.equals("Project Manager") ) continue;
+                    String tbData[] = {ma,ten,chucvu}; 
+                    modeltemp.addRow(tbData);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+            }      
+    }
+    public void shownhanvien(DefaultTableModel model) throws SQLException{
+        modeltemp = model;
+        if(NhanVien.getInstance().machucvu == 1) shownhanvien_Admin(modeltemp);
+        else shownhanvien_PM(modeltemp);
+    }
+    public String laytenchucvu(int ma) throws SQLException{
         connect();
         String query = "select tenchucvu from chucvu where machucvu = "+ma+"";
         ResultSet rs = stmt.executeQuery(query);
@@ -215,7 +260,6 @@ public class ChucNang extends Database{
                 JOptionPane.showMessageDialog(null, "Delete Nhân Viên Thành Công");
             }
         }
-        
     }
     public void ActiveNhanVien(String ma) throws SQLException{
         connect();

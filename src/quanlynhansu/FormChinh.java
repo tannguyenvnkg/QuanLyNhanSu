@@ -14,7 +14,7 @@ public class FormChinh extends javax.swing.JFrame {
 //        mePM.setVisible(false);
 //        meLD.setVisible(false);
 //        meAD.setVisible(false);
-
+        
     }
   
     /**
@@ -119,7 +119,6 @@ public class FormChinh extends javax.swing.JFrame {
         MnNhanVien.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, java.awt.Color.white, null, null));
         MnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-account-50.png"))); // NOI18N
         MnNhanVien.setText(" Nhân Viên  ");
-        MnNhanVien.setActionCommand(" Nhân Viên  ");
         MnNhanVien.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
 
         jMenuItem3.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
@@ -136,7 +135,6 @@ public class FormChinh extends javax.swing.JFrame {
         MnLeader.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MnLeader.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-contact-details-50.png"))); // NOI18N
         MnLeader.setText(" Leader  ");
-        MnLeader.setActionCommand(" Leader  ");
         MnLeader.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
 
         jMenuItem2.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
@@ -157,13 +155,17 @@ public class FormChinh extends javax.swing.JFrame {
         MnPM.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         MnPM.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-walter-white-50.png"))); // NOI18N
         MnPM.setText(" PM  ");
-        MnPM.setActionCommand(" PM  ");
         MnPM.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
 
         jMenuItem10.setText("Thêm Nhân Sự");
         MnPM.add(jMenuItem10);
 
         jMenuItem11.setText("Danh Sách Dự Án");
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
         MnPM.add(jMenuItem11);
 
         jMenuItem5.setText("Gửi Báo Cáo");
@@ -282,6 +284,12 @@ public class FormChinh extends javax.swing.JFrame {
             Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_MnItNSActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        FormDuAn frmDuAn = new FormDuAn();
+        frmDuAn.show();
+        dispose();
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
 
     /**
      * @param args the command line arguments
