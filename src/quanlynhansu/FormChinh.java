@@ -49,6 +49,7 @@ public class FormChinh extends javax.swing.JFrame {
         MnAdmin = new javax.swing.JMenu();
         jMenu7 = new javax.swing.JMenu();
         MnItNS = new javax.swing.JMenuItem();
+        jMenuItem12 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         jMenuItem7 = new javax.swing.JMenuItem();
         jMenuItem15 = new javax.swing.JMenuItem();
@@ -191,6 +192,14 @@ public class FormChinh extends javax.swing.JFrame {
         });
         jMenu7.add(MnItNS);
 
+        jMenuItem12.setText("Phòng");
+        jMenuItem12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem12ActionPerformed(evt);
+            }
+        });
+        jMenu7.add(jMenuItem12);
+
         MnAdmin.add(jMenu7);
 
         jMenu2.setText("Danh Sách");
@@ -277,7 +286,7 @@ public class FormChinh extends javax.swing.JFrame {
                 ns.model(); //lấy jtable
                 ns.comboBoxModel(); // lấy combobox
                 cn.shownhanvien(ns.model);  // show nhân viên vào jtable
-                cn.showcombobox(ns.comboBoxModel);
+                cn.showcomboboxchucvu(ns.comboBoxModel);
                 ns.disable();
             }
         } catch (SQLException ex) {
@@ -290,6 +299,25 @@ public class FormChinh extends javax.swing.JFrame {
         frmDuAn.show();
         dispose();
     }//GEN-LAST:event_jMenuItem11ActionPerformed
+
+    private void jMenuItem12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem12ActionPerformed
+        try {
+            ChucNang cn = new ChucNang();
+            if(NhanVien.getInstance().getMachucvu() > 1){
+                JOptionPane.showMessageDialog(null, "Bạn không có quyền truy cập");
+            }
+            else {
+                FormPhong frmPhong = new FormPhong();
+                frmPhong.comboBoxModel();
+                cn.showcomboboxphong(frmPhong.comboBoxModel);
+                frmPhong.show();
+                dispose();
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            
+    }//GEN-LAST:event_jMenuItem12ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -343,6 +371,7 @@ public class FormChinh extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
+    private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem15;
     private javax.swing.JMenuItem jMenuItem16;
     private javax.swing.JMenuItem jMenuItem2;

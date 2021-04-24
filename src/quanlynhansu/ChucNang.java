@@ -50,6 +50,10 @@ public class ChucNang extends Database{
 //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc=" show nhân viên lên jtable">
+    public void showLeader(DefaultTableModel model){
+        connect();
+        //String query = ""
+    }
     public void shownhanvien_Admin(DefaultTableModel modeltemp){
         connect();
         //Statement stmt1 = conn.createStatement();
@@ -144,7 +148,7 @@ public class ChucNang extends Database{
         return null;
      }
      // add combobox tại quản lý
-    public void showcombobox(DefaultComboBoxModel aBoxModel) throws SQLException{
+    public void showcomboboxchucvu(DefaultComboBoxModel aBoxModel) throws SQLException{
         connect();
         String query = "Select * from chucvu";
         ResultSet rs = stmt.executeQuery(query);
@@ -152,6 +156,14 @@ public class ChucNang extends Database{
             aBoxModel.addElement(rs.getString("Tenchucvu"));
         }
     } 
+    public void showcomboboxphong(DefaultComboBoxModel aBoxModel) throws SQLException{
+        connect();
+        String query = "Select * from phong";
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {                
+            aBoxModel.addElement(rs.getString("tenphong"));
+        }
+    }
     //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc="Đổi Pass">
@@ -312,6 +324,42 @@ public class ChucNang extends Database{
         String query1 = "insert into THOIGIANNHANVIEC values('"+ma+"',"+machucvu+",current_timestamp)";
         stmt.execute(query1);
     }
+    //</editor-fold>
+    //==========================================================================================================
+    //<editor-fold defaultstate="collapsed" desc="Form Phòng">
+    public void CreateRoom(String maphong, String tenphong, String maLeader) throws SQLException{
+        if(checkLeader(maLeader)) JOptionPane.showMessageDialog(null, "Người Này Đang Làm Leader cho 1 phòng khác");
+        else if(!checkroom(maphong)){
+           connect();
+           String query = "insert into PHONG values('"+maphong+"',N'"+tenphong+"','"+maLeader+"')";
+           stmt.execute(query);
+           nhanphong(maLeader, maphong);
+           JOptionPane.showMessageDialog(null, "Add Thành Công"); 
+        }else JOptionPane.showMessageDialog(null, "Mã Phòng Đã Tồn Tại");
+    }
+    public void nhanphong(String maLeader,String maphong) throws SQLException{
+        connect();
+        String query = "insert into THOIGIANNHANPHONG values('"+maLeader+"','"+maphong+"',current_timestamp)";
+        stmt.execute(query);
+    }
+    public boolean checkroom(String maphong) throws SQLException{
+        connect();
+        String query = "select * from phong where maphong = '"+maphong+"'";
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {            
+            return true;
+        }
+        return false;
+    }
+    public boolean checkLeader(String maLeader) throws SQLException{
+        connect();
+        String query = "select * from phong where manhanvien = '"+maLeader+"'";
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {            
+            return true;
+        }
+        return false;
+    } 
     //</editor-fold>
 }
 

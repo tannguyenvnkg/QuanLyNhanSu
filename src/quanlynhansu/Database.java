@@ -25,7 +25,7 @@ public class Database {
         
         try {
             String ServerDBName = "localhost";
-            String databaseName = "QuanLyNhanSu";
+            String databaseName = "QLNS";
             String user = "sa";
             String password = "123456";
             String dbURL = "jdbc:sqlserver://"+ ServerDBName +";databaseName="+ databaseName + ";user=" + user + ";password="+password; 

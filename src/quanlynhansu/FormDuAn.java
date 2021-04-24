@@ -53,7 +53,6 @@ public class FormDuAn extends javax.swing.JFrame {
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        btnCreateProject = new javax.swing.JButton();
         btnBack = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -205,13 +204,6 @@ public class FormDuAn extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        btnCreateProject.setText("Khởi Tạo Dự Án");
-        btnCreateProject.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnCreateProjectActionPerformed(evt);
-            }
-        });
-
         btnBack.setText("Trở Lại");
         btnBack.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -239,11 +231,8 @@ public class FormDuAn extends javax.swing.JFrame {
                                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel2))
                         .addGap(30, 30, 30)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnCreateProject))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel3)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
@@ -260,10 +249,8 @@ public class FormDuAn extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnBack)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(btnCreateProject)
-                            .addComponent(jLabel3))
+                        .addGap(10, 10, 10)
+                        .addComponent(jLabel3)
                         .addGap(18, 18, 18)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -299,19 +286,6 @@ public class FormDuAn extends javax.swing.JFrame {
         frmChinh.show();
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
-
-    private void btnCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateProjectActionPerformed
-        try {
-            ChucNang cn = new ChucNang();
-            FormCreateProject fcp = new FormCreateProject();
-            fcp.show();
-            dispose();
-            fcp.model();
-            cn.shownhanvien(fcp.model);
-        } catch (SQLException ex) {
-            Logger.getLogger(FormDuAn.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_btnCreateProjectActionPerformed
 
     /**
      * @param args the command line arguments
@@ -350,7 +324,6 @@ public class FormDuAn extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnBack;
-    private javax.swing.JButton btnCreateProject;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
