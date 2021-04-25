@@ -12,7 +12,6 @@ package quanlynhansu;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 /**
  *
  * @author tanng

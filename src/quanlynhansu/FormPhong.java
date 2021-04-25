@@ -5,7 +5,11 @@
  */
 package quanlynhansu;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -22,9 +26,13 @@ public class FormPhong extends javax.swing.JFrame {
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc=" Khởi Tạo Model Table ">
-    DefaultTableModel model = null;
-    public DefaultTableModel model(){
-        return model = (DefaultTableModel)tableshownhanvien.getModel();
+    DefaultTableModel modelshownhanvien = null;
+    public DefaultTableModel modelshownhanvien(){
+        return modelshownhanvien = (DefaultTableModel)tableshownhanvien.getModel();
+    }
+     DefaultTableModel modelluunhanvien = null;
+    public DefaultTableModel modelluunhanvien(){
+        return modelluunhanvien = (DefaultTableModel)tableluunhanvien.getModel();
     }
 //</editor-fold>
     /**
@@ -32,8 +40,10 @@ public class FormPhong extends javax.swing.JFrame {
      */
     public FormPhong() {
         initComponents();
-        tableshownhanvien.setDefaultEditor(Object.class , null);
+        tableshownhanvien.setDefaultEditor(Object.class , null); // không được phép sửa trên jtable
         tableluunhanvien.setDefaultEditor(Object.class , null);
+        tableshownhanvien.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // chỉ được phép chọn 1 dòng trong Jtable
+        tableluunhanvien.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
     }
 
     /**
@@ -62,6 +72,8 @@ public class FormPhong extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         cboPhong = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txtLeader = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,7 +90,7 @@ public class FormPhong extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã Nhân Viên", "Tên Nhân Viên", "Chức Vụ"
+                "Mã Nhân Viên", "Tên Nhân Viên"
             }
         ));
         jScrollPane1.setViewportView(tableshownhanvien);
@@ -88,7 +100,7 @@ public class FormPhong extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Mã Nhân Viên", "Tên Nhân Viên", "Chức Vụ"
+                "Mã Nhân Viên", "Tên Nhân Viên"
             }
         ));
         jScrollPane2.setViewportView(tableluunhanvien);
@@ -203,6 +215,20 @@ public class FormPhong extends javax.swing.JFrame {
             }
         });
 
+        cboPhong.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                cboPhongMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                cboPhongMouseReleased(evt);
+            }
+        });
+        cboPhong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboPhongActionPerformed(evt);
+            }
+        });
+
         jLabel9.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel9.setText("Chọn Phòng :");
 
@@ -233,6 +259,10 @@ public class FormPhong extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel1.setText("Leader:");
+
+        txtLeader.setEnabled(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -247,7 +277,11 @@ public class FormPhong extends javax.swing.JFrame {
                         .addComponent(jLabel8))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(57, 57, 57)
+                        .addComponent(jLabel1)
+                        .addGap(18, 18, 18)
+                        .addComponent(txtLeader, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -258,12 +292,19 @@ public class FormPhong extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel8)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBack)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnBack))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtLeader, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -289,7 +330,7 @@ public class FormPhong extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        model();
+        modelshownhanvien();
         TableModel tb1 = tableshownhanvien.getModel();
         DefaultTableModel tb2 = (DefaultTableModel)tableluunhanvien.getModel();
         
@@ -299,13 +340,11 @@ public class FormPhong extends javax.swing.JFrame {
         for (int i = 0; i < indexs.length; i++) {
             row[0] = tb1.getValueAt(indexs[i], 0);
             row[1] = tb1.getValueAt(indexs[i], 1);
-            row[2] = tb1.getValueAt(indexs[i], 2);
+            //row[2] = tb1.getValueAt(indexs[i], 2);
             
             tb2.addRow(row);
-            model.removeRow(indexs[i]);
+            modelshownhanvien.removeRow(indexs[i]);
         }
-        
-        
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteActionPerformed
@@ -319,7 +358,7 @@ public class FormPhong extends javax.swing.JFrame {
         for (int i = 0; i < indexs.length; i++) {
             row[0] = tb1.getValueAt(indexs[i], 0);
             row[1] = tb1.getValueAt(indexs[i], 1);
-            row[2] = tb1.getValueAt(indexs[i], 2);
+            //row[2] = tb1.getValueAt(indexs[i], 2);
             
             tb2.addRow(row);
             tb.removeRow(indexs[i]);
@@ -331,17 +370,42 @@ public class FormPhong extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        FormCreateRoom fcr = new FormCreateRoom();
-        ChucNang cn = new ChucNang();
-        fcr.show();
-        fcr.model();
-        cn.showLeader(fcr.model);
-        dispose();
+        try {
+            FormCreateRoom fcr = new FormCreateRoom();
+            ChucNang cn = new ChucNang();
+            fcr.setVisible(true);
+            fcr.model();
+            cn.showLeader(fcr.model);
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+       
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void cboPhongMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboPhongMousePressed
+        
+    }//GEN-LAST:event_cboPhongMousePressed
+
+    private void cboPhongMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboPhongMouseReleased
+        
+    }//GEN-LAST:event_cboPhongMouseReleased
+
+    private void cboPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPhongActionPerformed
+       try {
+            ChucNang cn = new ChucNang();
+            String tenphong = (String) cboPhong.getSelectedItem(); // lấy tên phòng để tìm leader
+            txtLeader.setText(cn.TenLeader(tenphong)); // set tên leader cho text
+            
+            modelshownhanvien();
+            cn.shownhanvien_FormPhong(modelshownhanvien);
+        } catch (SQLException ex) {
+            Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_cboPhongActionPerformed
 
     /**
      * @param args the command line arguments
@@ -387,6 +451,7 @@ public class FormPhong extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cboPhong;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -397,5 +462,6 @@ public class FormPhong extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable tableluunhanvien;
     private javax.swing.JTable tableshownhanvien;
+    private javax.swing.JTextField txtLeader;
     // End of variables declaration//GEN-END:variables
 }

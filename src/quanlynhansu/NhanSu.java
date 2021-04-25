@@ -14,6 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -41,6 +42,7 @@ public class NhanSu extends javax.swing.JFrame {
     public NhanSu() {
         initComponents();
         tablenhanvien.setDefaultEditor(Object.class , null);
+        tablenhanvien.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // chỉ được phép chọn 1 dòng trong Jtable
     }
 
     /**
@@ -482,12 +484,13 @@ public class NhanSu extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
+            String ngaysinh = "";
             boolean gioitinh = true;
             ChucNang cn = new ChucNang();
             String ma = txtmanhanvien.getText();
             String ten = txttennhanvien.getText();
             if(rbtnNu.isSelected()) gioitinh = false;
-            String ngaysinh = date.format(txtngaysinh.getDate());
+            ngaysinh = date.format(txtngaysinh.getDate());
             String sdt = txtsdt.getText();
             String diachi = txtdiachi.getText();
             //String matkhau = txtmatkhau.getText();
@@ -503,9 +506,11 @@ public class NhanSu extends javax.swing.JFrame {
             Logger.getLogger(NhanSu.class.getName()).log(Level.SEVERE, null, ex);
         } catch (NoSuchAlgorithmException ex) {
             Logger.getLogger(NhanSu.class.getName()).log(Level.SEVERE, null, ex);
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, "Bạn chưa điền ngày sinh");
         }
     }//GEN-LAST:event_btnSaveActionPerformed
-
+    
     private void btnAddNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewActionPerformed
         enable();
         clear();

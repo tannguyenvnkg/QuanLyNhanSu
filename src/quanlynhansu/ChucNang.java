@@ -50,9 +50,22 @@ public class ChucNang extends Database{
 //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc=" show nhân viên lên jtable">
-    public void showLeader(DefaultTableModel model){
+    public String queryshowLeader(){
+        return "select nv.* \n" +
+                "from NHANVIEN nv  left join THOIGIANNHANPHONG tgnp on nv.manhanvien = tgnp.manhanvien\n" +
+                "where tgnp.manhanvien is null and nv.machucvu = 3";
+    }
+    public void showLeader(DefaultTableModel model) throws SQLException{
         connect();
-        //String query = ""
+        String query = queryshowLeader();
+        model.setRowCount(0);
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {            
+            String maLeader = rs.getString("manhanvien");
+            String tenLeader = rs.getString("tennhanvien");
+            String tbData[] = {maLeader,tenLeader}; 
+            model.addRow(tbData);
+        }
     }
     public void shownhanvien_Admin(DefaultTableModel modeltemp){
         connect();
@@ -218,8 +231,9 @@ public class ChucNang extends Database{
             machucvu = rs.getInt(1); // set mã nhân viên gán với chức vụ
         }
         //</editor-fold>
+        
         String query = 
-            "Update nhanvien set "
+            "Update nhanvien set machucvu = '"+machucvu+"',"
                 + "tennhanvien = N'"+ten+"' , sdt='"+sdt+"', ngaysinh = '"+ngaysinh+"',"
                 + "diachi=N'"+diachi+"', gioitinh = "+sex+" where manhanvien='"+ma+"'";
         stmt.execute(query);
@@ -252,11 +266,11 @@ public class ChucNang extends Database{
         } while (checkma(ma));
         //======================================================================================
         String matkhau = MD5(ma); // cho mật khẩu và tài khoản trùng nhau
-        String query = "insert into nhanvien values('"+ma+"',N'"+ten+"','"+ngaysinh+"',N'"+diachi+"','"+sdt+"',"+sex+",'"+matkhau+"',1)";
+        
+        String query = "insert into nhanvien values('"+ma+"',N'"+ten+"','"+ngaysinh+"',N'"+diachi+"','"+sdt+"',"+sex+",'"+matkhau+"',1,'"+machucvu+"')";
         //String query1 = "insert into THOIGIANNHANVIEC values('"+ma+"',"+machucvu+",current_timestamp)";
         stmt.execute(query);//chạy query
-        addTHOIGIANNHANVIEC(ma, machucvu);
-        //stmt.execute(query1);
+        addTHOIGIANNHANVIEC(ma, machucvu);// add thơi gian nhận việc cho nhân viên
         JOptionPane.showMessageDialog(null, "Add Nhân Viên Thành Công \n Tài Khoản : "+ma+"\n Mật Khẩu : "+ma+"");
     }
     public void DeleteNhanVien(String ma) throws SQLException{
@@ -321,9 +335,19 @@ public class ChucNang extends Database{
     }
     public void addTHOIGIANNHANVIEC(String ma, int machucvu) throws SQLException{
         connect();
-        String query1 = "insert into THOIGIANNHANVIEC values('"+ma+"',"+machucvu+",current_timestamp)";
-        stmt.execute(query1);
+        Statement stmt1 = conn.createStatement();
+        String checkmakhongdoi = "select top 1 * from THOIGIANNHANVIEC where manhanvien = '"+ma+"' order by ngaynhancv desc";
+        ResultSet rs = stmt1.executeQuery(checkmakhongdoi); // nếu không đổi chức vụ thì không add thời gian nhận việc mới
+        if (!rs.next()) {            
+            String query1 = "insert into THOIGIANNHANVIEC values('"+ma+"',"+machucvu+",current_timestamp)";
+            stmt.execute(query1);
+        }else if(!(rs.getInt("machucvu") == machucvu)){
+            Statement stmt2 = conn.createStatement();
+            String query1 = "insert into THOIGIANNHANVIEC values('"+ma+"',"+machucvu+",current_timestamp)";
+            stmt2.execute(query1);
+        }
     }
+    
     //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc="Form Phòng">
@@ -360,6 +384,29 @@ public class ChucNang extends Database{
         }
         return false;
     } 
+    public String TenLeader(String tenphong) throws SQLException{
+        connect();
+        String query = "select tennhanvien from NHANVIEN nv, PHONG p\n" +
+                        "where nv.manhanvien=p.manhanvien and tenphong = N'"+tenphong+"'";
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {            
+            return rs.getString(1);
+        }
+        return "Không Tồn Tại";
+    }
+    public void shownhanvien_FormPhong(DefaultTableModel model) throws SQLException{
+        connect();
+        String query = "select * from nhanvien where machucvu>2";
+        ResultSet rs = stmt.executeQuery(query);
+        model.setRowCount(0); // set số dòng bằng 0
+        while(rs.next()){
+            String manhanvien = rs.getString("manhanvien");
+            String tennhanvien = rs.getString("tennhanvien");
+            
+            String dataString[] = {manhanvien,tennhanvien};
+            model.addRow(dataString);
+        }
+    }
     //</editor-fold>
 }
 

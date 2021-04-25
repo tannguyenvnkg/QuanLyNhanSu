@@ -179,6 +179,17 @@ public class FormChinh extends javax.swing.JFrame {
         MnAdmin.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-vip-50.png"))); // NOI18N
         MnAdmin.setText(" Quản Trị Viên");
         MnAdmin.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
+        MnAdmin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                MnAdminMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                MnAdminMouseEntered(evt);
+            }
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                MnAdminMousePressed(evt);
+            }
+        });
 
         jMenu7.setText("Quản Lý Nhân Sự");
         jMenu7.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
@@ -318,6 +329,19 @@ public class FormChinh extends javax.swing.JFrame {
         }
             
     }//GEN-LAST:event_jMenuItem12ActionPerformed
+
+    private void MnAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnAdminMouseClicked
+        
+    }//GEN-LAST:event_MnAdminMouseClicked
+
+    private void MnAdminMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnAdminMouseEntered
+       
+    }//GEN-LAST:event_MnAdminMouseEntered
+
+    private void MnAdminMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_MnAdminMousePressed
+        if(NhanVien.getInstance().getMachucvu()>1)
+           JOptionPane.showMessageDialog(null, "bạn không có quyền truy cập");
+    }//GEN-LAST:event_MnAdminMousePressed
 
     /**
      * @param args the command line arguments

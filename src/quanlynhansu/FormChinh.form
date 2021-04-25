@@ -209,6 +209,11 @@
               <Font name="Times New Roman" size="18" style="1"/>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="MnAdminMouseClicked"/>
+            <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="MnAdminMouseEntered"/>
+            <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="MnAdminMousePressed"/>
+          </Events>
           <SubComponents>
             <Menu class="javax.swing.JMenu" name="jMenu7">
               <Properties>
