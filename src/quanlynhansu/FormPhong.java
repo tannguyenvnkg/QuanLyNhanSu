@@ -6,6 +6,7 @@
 package quanlynhansu;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
@@ -366,7 +367,17 @@ public class FormPhong extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
-        
+        try {
+            modelluunhanvien();
+            ChucNang cn = new ChucNang();
+            ArrayList<String> chuoi = new ArrayList<String>();
+            for (int i = 0; i < modelluunhanvien.getRowCount(); i++) {
+                chuoi.add(modelluunhanvien.getValueAt(i, 0).toString());
+            }
+            cn.AddNhanVienVaoPhong(chuoi,cboPhong.getSelectedItem().toString());
+        } catch (SQLException ex) {
+            Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -401,7 +412,9 @@ public class FormPhong extends javax.swing.JFrame {
             txtLeader.setText(cn.TenLeader(tenphong)); // set tên leader cho text
             
             modelshownhanvien();
-            cn.shownhanvien_FormPhong(modelshownhanvien);
+            modelluunhanvien();
+            cn.tableshownhanvien_FormPhong(modelshownhanvien,tenphong);
+            cn.tableluunhanvien_FormPhong(modelluunhanvien,tenphong);
         } catch (SQLException ex) {
             Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -24,7 +24,7 @@ import javax.swing.table.DefaultTableModel;
  */
 public class ChucNang extends Database{
     DefaultTableModel modeltemp = null;
-    //<editor-fold defaultstate="collapsed" desc="Login">
+    //<editor-fold defaultstate="collapsed" desc="Form Login">
     public  boolean login(String user, String pass) throws SQLException, NoSuchAlgorithmException{
         connect(); // kết nối database
        // Statement stmt1 = conn.createStatement();
@@ -49,7 +49,7 @@ public class ChucNang extends Database{
     }
 //</editor-fold>
     //==========================================================================================================
-    //<editor-fold defaultstate="collapsed" desc=" show nhân viên lên jtable">
+    //<editor-fold defaultstate="collapsed" desc="show nhân viên lên jtable">
     public String queryshowLeader(){
         return "select nv.* \n" +
                 "from NHANVIEN nv  left join THOIGIANNHANPHONG tgnp on nv.manhanvien = tgnp.manhanvien\n" +
@@ -169,14 +169,7 @@ public class ChucNang extends Database{
             aBoxModel.addElement(rs.getString("Tenchucvu"));
         }
     } 
-    public void showcomboboxphong(DefaultComboBoxModel aBoxModel) throws SQLException{
-        connect();
-        String query = "Select * from phong";
-        ResultSet rs = stmt.executeQuery(query);
-        while (rs.next()) {                
-            aBoxModel.addElement(rs.getString("tenphong"));
-        }
-    }
+    
     //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc="Đổi Pass">
@@ -216,7 +209,7 @@ public class ChucNang extends Database{
     }
 //</editor-fold>
     //==========================================================================================================
-    //<editor-fold defaultstate="collapsed" desc="Thêm Xóa Sửa Active Nhân Viên">
+    //<editor-fold defaultstate="collapsed" desc="Form Nhân Sự - Quyền Admin">
     //Thêm Xóa Sửa Nhân Viên
     public void UpdateNhanVien(String ma,String ten,String ngaysinh,String diachi,String sdt,boolean gioitinh,String chucvu) throws SQLException, NoSuchAlgorithmException{
         connect();
@@ -350,7 +343,15 @@ public class ChucNang extends Database{
     
     //</editor-fold>
     //==========================================================================================================
-    //<editor-fold defaultstate="collapsed" desc="Form Phòng">
+    //<editor-fold defaultstate="collapsed" desc="Form Phòng - Quyền Admin">
+    public void showcomboboxphong(DefaultComboBoxModel aBoxModel) throws SQLException{
+        connect();
+        String query = "Select * from phong";
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {                
+            aBoxModel.addElement(rs.getString("tenphong"));
+        }
+    }
     public void CreateRoom(String maphong, String tenphong, String maLeader) throws SQLException{
         if(checkLeader(maLeader)) JOptionPane.showMessageDialog(null, "Người Này Đang Làm Leader cho 1 phòng khác");
         else if(!checkroom(maphong)){
@@ -361,11 +362,88 @@ public class ChucNang extends Database{
            JOptionPane.showMessageDialog(null, "Add Thành Công"); 
         }else JOptionPane.showMessageDialog(null, "Mã Phòng Đã Tồn Tại");
     }
-    public void nhanphong(String maLeader,String maphong) throws SQLException{
+    
+    
+    //<editor-fold defaultstate="collapsed" desc="Add nhân viên vào THOIGIANNHANPHONG">
+    public void nhanphong(String manhanvien,String maphong) throws SQLException{
         connect();
-        String query = "insert into THOIGIANNHANPHONG values('"+maLeader+"','"+maphong+"',current_timestamp)";
-        stmt.execute(query);
+        if(!DaCoPhong(manhanvien,maphong)){ // kiểm tra nhân viên đã có phòng chưa
+            String query = "insert into THOIGIANNHANPHONG values('"+manhanvien+"','"+maphong+"',current_timestamp,null)";
+            stmt.execute(query);
+            System.out.println("Insert manhanvien : " + manhanvien);
+        }
+        else System.out.println("Mã nhân viên : " +manhanvien+ " đã có phòng");
     }
+    public boolean DaCoPhong(String manhanvien, String maphong) throws SQLException{
+        connect();
+        //SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        String query = "select * from THOIGIANNHANPHONG\n" +
+                        "where manhanvien = '"+manhanvien+"' and maphong = '"+maphong+"' and ngaynhanphong is not null";
+        ResultSet rs = stmt.executeQuery(query);
+        if(!rs.next()) return false;
+        else {
+            while (rs.next()) {                
+                //String ngayroiphong = date.format(rs.getDate("ngayroiphong"));
+                if(rs.getDate("ngayroiphong") != null) return false;
+            }
+        }
+        return true;
+    }
+    public void AddNhanVienVaoPhong(ArrayList<String> chuoi, String tenphong) throws SQLException{
+        String maphong = getMaphong(tenphong); // lấy mã phòng từ tên phòng
+        for (String obj : chuoi){
+            nhanphong(obj, maphong);
+        }
+        JOptionPane.showMessageDialog(null, "Lưu Thành Công");
+    }
+    public String getMaphong(String tenphong) throws SQLException{
+        connect();
+        String query = "select maphong from phong where tenphong = N'"+tenphong+"'";
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {            
+            return rs.getString(1);
+        }
+        return null;
+    }
+    //</editor-fold>
+    //<editor-fold defaultstate="collapsed" desc="Xuất nhân viên vào 2 jtable">
+
+    public void tableshownhanvien_FormPhong(DefaultTableModel model, String tenphong) throws SQLException{
+        connect();
+        String maphong = getMaphong(tenphong);
+        String query = "select *\n" +
+                        "from NHANVIEN nv left join  thoigiannhanphong tgnp\n" +
+                        "on nv.manhanvien = tgnp.manhanvien\n" +
+                        "where machucvu > 2 and (maphong NOT LIKE '"+maphong+"' or maphong is null)";
+        ResultSet rs = stmt.executeQuery(query);
+        model.setRowCount(0); // set số dòng bằng 0
+        while(rs.next()){
+            String manhanvien = rs.getString(1);
+            String tennhanvien = rs.getString(2);
+            
+            String dataString[] = {manhanvien,tennhanvien};
+            model.addRow(dataString);
+        }
+    }
+    public void tableluunhanvien_FormPhong(DefaultTableModel model, String tenphong) throws SQLException{
+        connect();
+        String maphong = getMaphong(tenphong);
+        String query = "select *\n" +
+                        "from NHANVIEN nv left join  thoigiannhanphong tgnp\n" +
+                        "on nv.manhanvien = tgnp.manhanvien\n" +
+                        "where machucvu > 2 and maphong  LIKE '"+maphong+"' and ngayroiphong is null ";
+        ResultSet rs = stmt.executeQuery(query);
+        model.setRowCount(0); // set số dòng bằng 0
+        while(rs.next()){
+            String manhanvien = rs.getString(1);
+            String tennhanvien = rs.getString(2);
+            
+            String dataString[] = {manhanvien,tennhanvien};
+            model.addRow(dataString);
+        }
+    }
+    //</editor-fold>
+    
     public boolean checkroom(String maphong) throws SQLException{
         connect();
         String query = "select * from phong where maphong = '"+maphong+"'";
@@ -394,19 +472,7 @@ public class ChucNang extends Database{
         }
         return "Không Tồn Tại";
     }
-    public void shownhanvien_FormPhong(DefaultTableModel model) throws SQLException{
-        connect();
-        String query = "select * from nhanvien where machucvu>2";
-        ResultSet rs = stmt.executeQuery(query);
-        model.setRowCount(0); // set số dòng bằng 0
-        while(rs.next()){
-            String manhanvien = rs.getString("manhanvien");
-            String tennhanvien = rs.getString("tennhanvien");
-            
-            String dataString[] = {manhanvien,tennhanvien};
-            model.addRow(dataString);
-        }
-    }
+    
     //</editor-fold>
 }
 
