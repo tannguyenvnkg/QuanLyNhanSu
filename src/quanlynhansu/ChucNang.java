@@ -50,23 +50,7 @@ public class ChucNang extends Database{
 //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc="show nhân viên lên jtable">
-    public String queryshowLeader(){
-        return "select nv.* \n" +
-                "from NHANVIEN nv  left join THOIGIANNHANPHONG tgnp on nv.manhanvien = tgnp.manhanvien\n" +
-                "where tgnp.manhanvien is null and nv.machucvu = 3";
-    }
-    public void showLeader(DefaultTableModel model) throws SQLException{
-        connect();
-        String query = queryshowLeader();
-        model.setRowCount(0);
-        ResultSet rs = stmt.executeQuery(query);
-        while (rs.next()) {            
-            String maLeader = rs.getString("manhanvien");
-            String tenLeader = rs.getString("tennhanvien");
-            String tbData[] = {maLeader,tenLeader}; 
-            model.addRow(tbData);
-        }
-    }
+    
     public void shownhanvien_Admin(DefaultTableModel modeltemp){
         connect();
         //Statement stmt1 = conn.createStatement();
@@ -169,7 +153,76 @@ public class ChucNang extends Database{
             aBoxModel.addElement(rs.getString("Tenchucvu"));
         }
     } 
-    
+    public void SearchNhanVienTheoMa(DefaultTableModel modeltemp,String manhanvien){
+        connect();
+        String query = "select * from dbo.timnhanvientheoma(N'"+manhanvien+"')";
+        modeltemp.setRowCount(0);
+        try {
+                String trangthai = "";
+                String chucvu = "";
+                String gioitinh = "";
+                SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+                
+                ResultSet rs = stmt.executeQuery(query);
+                while(rs.next()){
+                    String ma = rs.getString("manhanvien");
+                    String ten = rs.getString("tennhanvien");
+                    String ngaysinh = date.format(rs.getDate("ngaysinh"));
+                    String address = rs.getString("DiaChi");
+                    String SDT = rs.getString("SDT");
+                    if(rs.getBoolean("gioitinh")) gioitinh = "Nam"; else gioitinh = "Nữ";
+                    //String matkhau = rs.getString("matkhau");
+
+                    if(rs.getBoolean("trangthainhanvien")) trangthai = "Active";
+                    else trangthai = "Deactive";
+
+                    ResultSet rs1 = getTHOIGIANNHANVIEC(ma);
+                    while (rs1.next()) {                        
+                        chucvu = laytenchucvu(rs1.getInt("machucvu"));
+                    }
+                    String tbData[] = {ma,ten,gioitinh,ngaysinh,SDT,address,chucvu,trangthai}; 
+                    modeltemp.addRow(tbData);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+            }      
+    }
+    public void SearchNhanVienTheoTen(DefaultTableModel modeltemp,String tennhanvien){
+        connect();
+        String query = "select * from dbo.timnhanvientheoten(N'"+tennhanvien+"')";
+        modeltemp.setRowCount(0);
+        try {
+                String trangthai = "";
+                String chucvu = "";
+                String gioitinh = "";
+                SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+                
+                ResultSet rs = stmt.executeQuery(query);
+                while(rs.next()){
+                    String ma = rs.getString("manhanvien");
+                    String ten = rs.getString("tennhanvien");
+                    String ngaysinh = date.format(rs.getDate("ngaysinh"));
+                    String address = rs.getString("DiaChi");
+                    String SDT = rs.getString("SDT");
+                    if(rs.getBoolean("gioitinh")) gioitinh = "Nam"; else gioitinh = "Nữ";
+                    //String matkhau = rs.getString("matkhau");
+
+                    if(rs.getBoolean("trangthainhanvien")) trangthai = "Active";
+                    else trangthai = "Deactive";
+
+                    ResultSet rs1 = getTHOIGIANNHANVIEC(ma);
+                    while (rs1.next()) {                        
+                        chucvu = laytenchucvu(rs1.getInt("machucvu"));
+                    }
+                    String tbData[] = {ma,ten,gioitinh,ngaysinh,SDT,address,chucvu,trangthai}; 
+                    modeltemp.addRow(tbData);
+                }
+
+            } catch (SQLException ex) {
+                Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+            }      
+    }
     //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc="Đổi Pass">
@@ -319,7 +372,7 @@ public class ChucNang extends Database{
      }
      //</editor-fold>
     //==========================================================================================================
-    //<editor-fold defaultstate="collapsed" desc="Linh Tinh">
+    //<editor-fold defaultstate="collapsed" desc="Hàm Dùng Lại Nhiều Lần">
     public ResultSet getTHOIGIANNHANVIEC(String ma) throws SQLException{
         connect();
         String querychucvu = "select top 1 * from THOIGIANNHANVIEC where manhanvien = '"+ma+"' order by ngaynhancv desc";
@@ -340,7 +393,28 @@ public class ChucNang extends Database{
             stmt2.execute(query1);
         }
     }
-    
+    public int CheckChucVu_TruyenMaNhanvien(String manhanvien) throws SQLException{
+        connect();
+        String query = "select machucvu from nhanvien where manhanvien = '"+manhanvien+"'";
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {            
+            return rs.getInt(1);
+        }
+        return 0;
+    }
+    public int KiemTraKieuDuLieuCuaChuoi(String chuoi){
+        Character c = chuoi.charAt(0);
+        int flag;
+        if(Character.isDigit(c)) flag = 1; 
+        else flag = 2;
+        int kytuhientai = 0;
+        for (int i = 0; i < chuoi.length(); i++) {
+            if(Character.isDigit(chuoi.charAt(i))) kytuhientai = 1;
+            else kytuhientai = 2;
+            if(flag != kytuhientai) return 3;
+        }
+        return kytuhientai;
+    }
     //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc="Form Phòng - Quyền Admin">
@@ -362,7 +436,14 @@ public class ChucNang extends Database{
            JOptionPane.showMessageDialog(null, "Add Thành Công"); 
         }else JOptionPane.showMessageDialog(null, "Mã Phòng Đã Tồn Tại");
     }
-    
+    public void DeleteNhanVienRaKhoiPhong_FormPhong(String manhanvien,String tenphong) throws SQLException{
+        connect();
+        String maphong = getMaphong(tenphong);
+        String query = "update THOIGIANNHANPHONG\n" +
+                        "set ngayroiphong = CURRENT_TIMESTAMP\n" +
+                        "where manhanvien = N'"+manhanvien+"' and maphong = '"+maphong+"'";
+        stmt.execute(query);
+    }
     
     //<editor-fold defaultstate="collapsed" desc="Add nhân viên vào THOIGIANNHANPHONG">
     public void nhanphong(String manhanvien,String maphong) throws SQLException{
@@ -377,21 +458,21 @@ public class ChucNang extends Database{
     public boolean DaCoPhong(String manhanvien, String maphong) throws SQLException{
         connect();
         //SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-        String query = "select * from THOIGIANNHANPHONG\n" +
-                        "where manhanvien = '"+manhanvien+"' and maphong = '"+maphong+"' and ngaynhanphong is not null";
+        String query = "select top 1 * from THOIGIANNHANPHONG\n" +
+                        "where manhanvien = '"+manhanvien+"' and maphong = '"+maphong+"'" +
+                         "order by ngaynhanphong desc";
         ResultSet rs = stmt.executeQuery(query);
+        Statement stmt1 = conn.createStatement();
+        ResultSet rs1 = stmt1.executeQuery(query);
         if(!rs.next()) return false;
-        else {
-            while (rs.next()) {                
-                //String ngayroiphong = date.format(rs.getDate("ngayroiphong"));
-                if(rs.getDate("ngayroiphong") != null) return false;
-            }
+        while(rs1.next()) {                
+            if(rs1.getDate("ngayroiphong") != null) return false;
         }
         return true;
     }
-    public void AddNhanVienVaoPhong(ArrayList<String> chuoi, String tenphong) throws SQLException{
+    public void AddNhanVienVaoPhong(ArrayList<String> chuoimanhanvien, String tenphong) throws SQLException{
         String maphong = getMaphong(tenphong); // lấy mã phòng từ tên phòng
-        for (String obj : chuoi){
+        for (String obj : chuoimanhanvien){
             nhanphong(obj, maphong);
         }
         JOptionPane.showMessageDialog(null, "Lưu Thành Công");
@@ -407,14 +488,16 @@ public class ChucNang extends Database{
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc="Xuất nhân viên vào 2 jtable">
-
     public void tableshownhanvien_FormPhong(DefaultTableModel model, String tenphong) throws SQLException{
         connect();
         String maphong = getMaphong(tenphong);
-        String query = "select *\n" +
-                        "from NHANVIEN nv left join  thoigiannhanphong tgnp\n" +
-                        "on nv.manhanvien = tgnp.manhanvien\n" +
-                        "where machucvu > 2 and (maphong NOT LIKE '"+maphong+"' or maphong is null)";
+        String query = "select distinct nv.manhanvien,tennhanvien,machucvu\n" +
+                        "from nhanvien nv\n" +
+                        "where machucvu > 3 and manhanvien not in \n" +
+                        "	( select distinct manhanvien \n" +
+                        "		from THOIGIANNHANPHONG\n" +
+                        "		where maphong = '"+maphong+"' and ngayroiphong is null\n" +
+                        "	) ";
         ResultSet rs = stmt.executeQuery(query);
         model.setRowCount(0); // set số dòng bằng 0
         while(rs.next()){
@@ -428,10 +511,13 @@ public class ChucNang extends Database{
     public void tableluunhanvien_FormPhong(DefaultTableModel model, String tenphong) throws SQLException{
         connect();
         String maphong = getMaphong(tenphong);
-        String query = "select *\n" +
-                        "from NHANVIEN nv left join  thoigiannhanphong tgnp\n" +
-                        "on nv.manhanvien = tgnp.manhanvien\n" +
-                        "where machucvu > 2 and maphong  LIKE '"+maphong+"' and ngayroiphong is null ";
+        String query = "select distinct nv.manhanvien,tennhanvien,machucvu\n" +
+                        "from nhanvien nv\n" +
+                        "where machucvu > 2 and manhanvien in \n" +
+                        "	( select distinct manhanvien \n" +
+                        "		from THOIGIANNHANPHONG\n" +
+                        "		where maphong = '"+maphong+"' and ngayroiphong is null\n" +
+                        "	) ";
         ResultSet rs = stmt.executeQuery(query);
         model.setRowCount(0); // set số dòng bằng 0
         while(rs.next()){
@@ -472,7 +558,23 @@ public class ChucNang extends Database{
         }
         return "Không Tồn Tại";
     }
-    
+//    public String queryshowLeader(){
+//        return "select nv.* \n" +
+//                "from NHANVIEN nv  left join THOIGIANNHANPHONG tgnp on nv.manhanvien = tgnp.manhanvien\n" +
+//                "where tgnp.manhanvien is null and nv.machucvu = 3";
+//    }
+    public void showLeader(DefaultTableModel model) throws SQLException{
+        connect();
+        String query = "select * from nhanvien where machucvu = 3";
+        model.setRowCount(0);
+        ResultSet rs = stmt.executeQuery(query);
+        while (rs.next()) {            
+            String maLeader = rs.getString("manhanvien");
+            String tenLeader = rs.getString("tennhanvien");
+            String tbData[] = {maLeader,tenLeader}; 
+            model.addRow(tbData);
+        }
+    }
     //</editor-fold>
 }
 
