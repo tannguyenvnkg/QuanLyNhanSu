@@ -415,166 +415,241 @@ public class ChucNang extends Database{
         }
         return kytuhientai;
     }
+    public String getMaphong(String tenphong) throws SQLException{
+            connect();
+            String query = "select maphong from phong where tenphong = N'"+tenphong+"'";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {            
+                return rs.getString(1);
+            }
+            return null;
+        }
+    public String getMaleader(String tenphong) throws SQLException{
+            connect();
+            String maphong = getMaphong(tenphong);
+            String query = "select manhanvien from phong where maphong = '"+maphong+"'";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {                
+                return  rs.getString(1);
+            }
+            return "";
+        }
     //</editor-fold>
     //==========================================================================================================
     //<editor-fold defaultstate="collapsed" desc="Form Phòng - Quyền Admin">
-    public void showcomboboxphong(DefaultComboBoxModel aBoxModel) throws SQLException{
-        connect();
-        String query = "Select * from phong";
-        ResultSet rs = stmt.executeQuery(query);
-        while (rs.next()) {                
-            aBoxModel.addElement(rs.getString("tenphong"));
+    //<editor-fold defaultstate="collapsed" desc="Form Quản Lý Phòng">
+        public void showcomboboxphong(DefaultComboBoxModel aBoxModel) throws SQLException{
+            connect();
+            String query = "Select * from phong";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {                
+                aBoxModel.addElement(rs.getString("tenphong"));
+            }
         }
-    }
-    public void CreateRoom(String maphong, String tenphong, String maLeader) throws SQLException{
-        if(checkLeader(maLeader)) JOptionPane.showMessageDialog(null, "Người Này Đang Làm Leader cho 1 phòng khác");
-        else if(!checkroom(maphong)){
-           connect();
-           String query = "insert into PHONG values('"+maphong+"',N'"+tenphong+"','"+maLeader+"')";
-           stmt.execute(query);
-           nhanphong(maLeader, maphong);
-           JOptionPane.showMessageDialog(null, "Add Thành Công"); 
-        }else JOptionPane.showMessageDialog(null, "Mã Phòng Đã Tồn Tại");
-    }
-    public void DeleteNhanVienRaKhoiPhong_FormPhong(String manhanvien,String tenphong) throws SQLException{
-        connect();
-        String maphong = getMaphong(tenphong);
-        String query = "update THOIGIANNHANPHONG\n" +
-                        "set ngayroiphong = CURRENT_TIMESTAMP\n" +
-                        "where manhanvien = N'"+manhanvien+"' and maphong = '"+maphong+"'";
-        stmt.execute(query);
-    }
-    
-    //<editor-fold defaultstate="collapsed" desc="Add nhân viên vào THOIGIANNHANPHONG">
-    public void nhanphong(String manhanvien,String maphong) throws SQLException{
-        connect();
-        if(!DaCoPhong(manhanvien,maphong)){ // kiểm tra nhân viên đã có phòng chưa
-            String query = "insert into THOIGIANNHANPHONG values('"+manhanvien+"','"+maphong+"',current_timestamp,null)";
+        public void CreateRoom(String maphong, String tenphong, String maLeader) throws SQLException{
+            //if(checkLeader(maLeader)) JOptionPane.showMessageDialog(null, "Người Này Đang Làm Leader cho 1 phòng khác");
+            if(!checkroom(maphong)){
+               connect();
+               String query = "insert into PHONG values('"+maphong+"',N'"+tenphong+"','"+maLeader+"')";
+               stmt.execute(query);
+               nhanphong(maLeader, maphong);
+               JOptionPane.showMessageDialog(null, "Add Thành Công"); 
+            }else JOptionPane.showMessageDialog(null, "Mã Phòng Đã Tồn Tại");
+        }
+        public void DeleteNhanVienRaKhoiPhong_FormPhong(String manhanvien,String tenphong) throws SQLException{
+            connect();
+            String maphong = getMaphong(tenphong);
+            String query = "update THOIGIANNHANPHONG\n" +
+                            "set ngayroiphong = CURRENT_TIMESTAMP\n" +
+                            "where manhanvien = N'"+manhanvien+"' and maphong = '"+maphong+"'";
             stmt.execute(query);
-            System.out.println("Insert manhanvien : " + manhanvien);
         }
-        else System.out.println("Mã nhân viên : " +manhanvien+ " đã có phòng");
-    }
-    public boolean DaCoPhong(String manhanvien, String maphong) throws SQLException{
-        connect();
-        //SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
-        String query = "select top 1 * from THOIGIANNHANPHONG\n" +
-                        "where manhanvien = '"+manhanvien+"' and maphong = '"+maphong+"'" +
-                         "order by ngaynhanphong desc";
-        ResultSet rs = stmt.executeQuery(query);
-        Statement stmt1 = conn.createStatement();
-        ResultSet rs1 = stmt1.executeQuery(query);
-        if(!rs.next()) return false;
-        while(rs1.next()) {                
-            if(rs1.getDate("ngayroiphong") != null) return false;
+
+            //<editor-fold defaultstate="collapsed" desc="Add nhân viên vào THOIGIANNHANPHONG">
+            public void nhanphong(String manhanvien,String maphong) throws SQLException{
+                connect();
+                if(!DaNamTrongPhong(manhanvien,maphong)){ // kiểm tra nhân viên đã có phòng chưa
+                    String query = "insert into THOIGIANNHANPHONG values('"+manhanvien+"','"+maphong+"',current_timestamp,null)";
+                    stmt.execute(query);
+                    System.out.println("Insert manhanvien : " + manhanvien);
+                }
+                else System.out.println("Mã nhân viên : " +manhanvien+ " đã có phòng");
+            }
+            public boolean DaNamTrongPhong(String manhanvien, String maphong) throws SQLException{
+                connect();
+                //SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+                String query = "select top 1 * from THOIGIANNHANPHONG\n" +
+                                "where manhanvien = '"+manhanvien+"' and maphong = '"+maphong+"'" +
+                                 "order by ngaynhanphong desc";
+                ResultSet rs = stmt.executeQuery(query);
+                Statement stmt1 = conn.createStatement();
+                ResultSet rs1 = stmt1.executeQuery(query);
+                if(!rs.next()) return false;
+                while(rs1.next()) {                
+                    if(rs1.getDate("ngayroiphong") != null) return false;
+                }
+                return true;
+            }
+            public void AddNhanVienVaoPhong(ArrayList<String> chuoimanhanvien, String tenphong) throws SQLException{
+                String maphong = getMaphong(tenphong); // lấy mã phòng từ tên phòng
+                for (String obj : chuoimanhanvien){
+                    nhanphong(obj, maphong);
+                }
+                
+            }
+
+            //</editor-fold>
+            //<editor-fold defaultstate="collapsed" desc="Xuất nhân viên vào 2 jtable">
+            public void tableshownhanvien_FormPhong(DefaultTableModel model, String tenphong) throws SQLException{
+                connect();
+                String maphong = getMaphong(tenphong);
+                String query = "select distinct nv.manhanvien,tennhanvien,machucvu\n" +
+                                "from nhanvien nv\n" +
+                                "where machucvu > 3 and manhanvien not in \n" +
+                                "	( select distinct manhanvien \n" +
+                                "		from THOIGIANNHANPHONG\n" +
+                                "		where maphong = '"+maphong+"' and ngayroiphong is null\n" +
+                                "	) ";
+                ResultSet rs = stmt.executeQuery(query);
+                model.setRowCount(0); // set số dòng bằng 0
+                while(rs.next()){
+                    String manhanvien = rs.getString(1);
+                    String tennhanvien = rs.getString(2);
+
+                    String dataString[] = {manhanvien,tennhanvien};
+                    model.addRow(dataString);
+                }
+            }
+            public void tableluunhanvien_FormPhong(DefaultTableModel model, String tenphong) throws SQLException{
+                connect();
+                String maphong = getMaphong(tenphong);
+                String query = "select distinct nv.manhanvien,tennhanvien,machucvu\n" +
+                                "from nhanvien nv\n" +
+                                "where machucvu > 2 and manhanvien in \n" +
+                                "	( select distinct manhanvien \n" +
+                                "		from THOIGIANNHANPHONG\n" +
+                                "		where maphong = '"+maphong+"' and ngayroiphong is null\n" +
+                                "	) ";
+                ResultSet rs = stmt.executeQuery(query);
+                model.setRowCount(0); // set số dòng bằng 0
+                while(rs.next()){
+                    String manhanvien = rs.getString(1);
+                    String tennhanvien = rs.getString(2);
+
+                    String dataString[] = {manhanvien,tennhanvien};
+                    model.addRow(dataString);
+                }
+            }
+            //</editor-fold>
+            //<editor-fold defaultstate="collapsed" desc="Tìm Kiếm Nhân Viên">
+            public void SearchNhanVienTheoMa_CoMaPhong(DefaultTableModel modeltemp,String manhanvien,String tenphong) throws SQLException{
+                connect();
+                String maphong = getMaphong(tenphong);
+                String query = "exec TimNhanVienTheoMa_CoMaPhong '"+manhanvien+"','"+maphong+"'";
+                ResultSet rs = stmt.executeQuery(query);
+                modeltemp.setRowCount(0); // set số dòng bằng 0
+                while(rs.next()){
+                    String ma = rs.getString("manhanvien");
+                    String ten = rs.getString("tennhanvien");
+
+                    String dataString[] = {ma,ten};
+                    modeltemp.addRow(dataString);
+                }
+            }
+            public void SearchNhanVienTheoTen_CoMaPhong(DefaultTableModel modeltemp,String tennhanvien,String tenphong) throws SQLException{
+                connect();
+                String maphong = getMaphong(tenphong);
+                String query = "exec TimNhanVienTheoTen_CoMaPhong N'"+tennhanvien+"','"+maphong+"'";
+                ResultSet rs = stmt.executeQuery(query);
+                modeltemp.setRowCount(0); // set số dòng bằng 0
+                while(rs.next()){
+                    String ma = rs.getString("manhanvien");
+                    String ten = rs.getString("tennhanvien");
+
+                    String dataString[] = {ma,ten};
+                    modeltemp.addRow(dataString);
+                }
+            }
+            //</editor-fold>
+        public boolean checkroom(String maphong) throws SQLException{
+            connect();
+            String query = "select * from phong where maphong = '"+maphong+"'";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {            
+                return true;
+            }
+            return false;
         }
-        return true;
-    }
-    public void AddNhanVienVaoPhong(ArrayList<String> chuoimanhanvien, String tenphong) throws SQLException{
-        String maphong = getMaphong(tenphong); // lấy mã phòng từ tên phòng
-        for (String obj : chuoimanhanvien){
-            nhanphong(obj, maphong);
+        public boolean checkLeader(String maLeader) throws SQLException{
+            connect();
+            String query = "select * from phong where manhanvien = '"+maLeader+"'";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {            
+                return true;
+            }
+            return false;
+        } 
+        public String TenLeader(String tenphong) throws SQLException{
+            connect();
+            String query = "select tennhanvien from NHANVIEN nv, PHONG p\n" +
+                            "where nv.manhanvien=p.manhanvien and tenphong = N'"+tenphong+"'";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {            
+                return rs.getString(1);
+            }
+            return "Không Tồn Tại";
         }
-        JOptionPane.showMessageDialog(null, "Lưu Thành Công");
-    }
-    public String getMaphong(String tenphong) throws SQLException{
-        connect();
-        String query = "select maphong from phong where tenphong = N'"+tenphong+"'";
-        ResultSet rs = stmt.executeQuery(query);
-        while (rs.next()) {            
-            return rs.getString(1);
+        public void showLeader(DefaultTableModel model) throws SQLException{
+            connect();
+            String query = "select * from nhanvien where machucvu = 3";
+            model.setRowCount(0);
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {            
+                String maLeader = rs.getString("manhanvien");
+                String tenLeader = rs.getString("tennhanvien");
+                String tbData[] = {maLeader,tenLeader}; 
+                model.addRow(tbData);
+            }
         }
-        return null;
-    }
     //</editor-fold>
-    //<editor-fold defaultstate="collapsed" desc="Xuất nhân viên vào 2 jtable">
-    public void tableshownhanvien_FormPhong(DefaultTableModel model, String tenphong) throws SQLException{
-        connect();
-        String maphong = getMaphong(tenphong);
-        String query = "select distinct nv.manhanvien,tennhanvien,machucvu\n" +
-                        "from nhanvien nv\n" +
-                        "where machucvu > 3 and manhanvien not in \n" +
-                        "	( select distinct manhanvien \n" +
-                        "		from THOIGIANNHANPHONG\n" +
-                        "		where maphong = '"+maphong+"' and ngayroiphong is null\n" +
-                        "	) ";
-        ResultSet rs = stmt.executeQuery(query);
-        model.setRowCount(0); // set số dòng bằng 0
-        while(rs.next()){
-            String manhanvien = rs.getString(1);
-            String tennhanvien = rs.getString(2);
-            
-            String dataString[] = {manhanvien,tennhanvien};
-            model.addRow(dataString);
+    //<editor-fold defaultstate="collapsed" desc="Form Đổi Leader Phòng">
+        public void ShowLeader_FormChangeLeader(DefaultTableModel model, String tenphong) throws SQLException{
+            connect();
+            String maphong = getMaphong(tenphong);
+            String query = "select distinct nv.manhanvien,tennhanvien,machucvu\n" +
+                            "from nhanvien nv\n" +
+                            "where machucvu = 3 and manhanvien not in \n" +
+                            "	( select distinct manhanvien \n" +
+                            "		from THOIGIANNHANPHONG\n" +
+                            "		where maphong = '"+maphong+"' and ngayroiphong is null\n" +
+                            "	) ";
+            ResultSet rs = stmt.executeQuery(query);
+            model.setRowCount(0); // set số dòng bằng 0
+            while(rs.next()){
+                String manhanvien = rs.getString(1);
+                String tennhanvien = rs.getString(2);
+
+                String dataString[] = {manhanvien,tennhanvien};
+                model.addRow(dataString);
+            }
         }
-    }
-    public void tableluunhanvien_FormPhong(DefaultTableModel model, String tenphong) throws SQLException{
-        connect();
-        String maphong = getMaphong(tenphong);
-        String query = "select distinct nv.manhanvien,tennhanvien,machucvu\n" +
-                        "from nhanvien nv\n" +
-                        "where machucvu > 2 and manhanvien in \n" +
-                        "	( select distinct manhanvien \n" +
-                        "		from THOIGIANNHANPHONG\n" +
-                        "		where maphong = '"+maphong+"' and ngayroiphong is null\n" +
-                        "	) ";
-        ResultSet rs = stmt.executeQuery(query);
-        model.setRowCount(0); // set số dòng bằng 0
-        while(rs.next()){
-            String manhanvien = rs.getString(1);
-            String tennhanvien = rs.getString(2);
-            
-            String dataString[] = {manhanvien,tennhanvien};
-            model.addRow(dataString);
+        public void ChangeRoomLeader_FormChangeLeader(String manhanvien, String tenphong) throws SQLException{
+            connect();
+            String maphong = getMaphong(tenphong); // lấy mã phòng
+            String OldLeaderID = getMaleader(tenphong); // lẫy mã leader cũ
+            DeleteNhanVienRaKhoiPhong_FormPhong(OldLeaderID, tenphong); // delete Leader cũ (thêm ngày rời phòng)
+            LeaderNhanPhongMoi(manhanvien,maphong); // add leader mới (add vào table phòng)
+            ArrayList<String> chuoi = new ArrayList<String>(); // tạo object để add leader vào table thời gian nhận phòng
+            chuoi.add(manhanvien);
+            AddNhanVienVaoPhong(chuoi,tenphong); // add leader vào thời gian nhận phòng 
         }
-    }
+        public void LeaderNhanPhongMoi(String manhanvien, String maphong) throws SQLException{
+        connect();
+        String query = "update phong set manhanvien = '"+manhanvien+"' where maphong = '"+maphong+"'";
+        stmt.execute(query);
+        }
+        
     //</editor-fold>
-    
-    public boolean checkroom(String maphong) throws SQLException{
-        connect();
-        String query = "select * from phong where maphong = '"+maphong+"'";
-        ResultSet rs = stmt.executeQuery(query);
-        while (rs.next()) {            
-            return true;
-        }
-        return false;
-    }
-    public boolean checkLeader(String maLeader) throws SQLException{
-        connect();
-        String query = "select * from phong where manhanvien = '"+maLeader+"'";
-        ResultSet rs = stmt.executeQuery(query);
-        while (rs.next()) {            
-            return true;
-        }
-        return false;
-    } 
-    public String TenLeader(String tenphong) throws SQLException{
-        connect();
-        String query = "select tennhanvien from NHANVIEN nv, PHONG p\n" +
-                        "where nv.manhanvien=p.manhanvien and tenphong = N'"+tenphong+"'";
-        ResultSet rs = stmt.executeQuery(query);
-        while (rs.next()) {            
-            return rs.getString(1);
-        }
-        return "Không Tồn Tại";
-    }
-//    public String queryshowLeader(){
-//        return "select nv.* \n" +
-//                "from NHANVIEN nv  left join THOIGIANNHANPHONG tgnp on nv.manhanvien = tgnp.manhanvien\n" +
-//                "where tgnp.manhanvien is null and nv.machucvu = 3";
-//    }
-    public void showLeader(DefaultTableModel model) throws SQLException{
-        connect();
-        String query = "select * from nhanvien where machucvu = 3";
-        model.setRowCount(0);
-        ResultSet rs = stmt.executeQuery(query);
-        while (rs.next()) {            
-            String maLeader = rs.getString("manhanvien");
-            String tenLeader = rs.getString("tennhanvien");
-            String tbData[] = {maLeader,tenLeader}; 
-            model.addRow(tbData);
-        }
-    }
     //</editor-fold>
 }
 

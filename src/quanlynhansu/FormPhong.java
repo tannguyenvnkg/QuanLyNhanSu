@@ -49,7 +49,7 @@ public class FormPhong extends javax.swing.JFrame {
         tableluunhanvien.setDefaultEditor(Object.class , null);
         tableshownhanvien.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // chỉ được phép chọn 1 dòng trong Jtable
         tableluunhanvien.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        
+        //txtLeader.setEditable(false);
         JTableHeader header = tableluunhanvien.getTableHeader();    
         header.setForeground(Color.black);
         header.setBackground(Color.red);
@@ -83,7 +83,7 @@ public class FormPhong extends javax.swing.JFrame {
         tableluunhanvien = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        btnCreateRoom = new javax.swing.JButton();
         cboPhong = new javax.swing.JComboBox<>();
         jLabel9 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
@@ -218,13 +218,13 @@ public class FormPhong extends javax.swing.JFrame {
 
         jPanel4.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-add-user-group-man-woman-30.png"))); // NOI18N
-        jButton1.setText("Tạo Phòng");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCreateRoom.setBackground(new java.awt.Color(255, 255, 255));
+        btnCreateRoom.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        btnCreateRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-add-user-group-man-woman-30.png"))); // NOI18N
+        btnCreateRoom.setText("Tạo Phòng");
+        btnCreateRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCreateRoomActionPerformed(evt);
             }
         });
 
@@ -255,7 +255,7 @@ public class FormPhong extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(cboPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 204, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btnCreateRoom)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel4Layout.setVerticalGroup(
@@ -265,7 +265,7 @@ public class FormPhong extends javax.swing.JFrame {
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cboPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCreateRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -384,19 +384,24 @@ public class FormPhong extends javax.swing.JFrame {
         try {
 //        DefaultTableModel tb = (DefaultTableModel)tableluunhanvien.getModel();
 //        DefaultTableModel tb2 = (DefaultTableModel)tableshownhanvien.getModel();
+
             modelshownhanvien();
             modelluunhanvien();
             TableModel tb1 = tableluunhanvien.getModel();
             ChucNang cn = new ChucNang();
             int indexs[] = tableluunhanvien.getSelectedRows();
-
-            Object[] row = new Object[3];
-            for (int i = 0; i < indexs.length; i++) {
+            String tennhanvien = tb1.getValueAt(indexs[0], 1).toString();
+            String tenphong = cboPhong.getSelectedItem().toString();
+            int dialogButton = JOptionPane.YES_NO_OPTION;
+            int dialogresult = JOptionPane.showConfirmDialog (null, "Bạn Muốn Xóa Nhân Viên \""+tennhanvien+"\" Ra Khỏi Phòng \""+tenphong+"\" ?","Warning",dialogButton);
+            if (dialogresult == 0){
+                Object[] row = new Object[3];
+                for (int i = 0; i < indexs.length; i++) {
                 row[0] = tb1.getValueAt(indexs[i], 0);
                 row[1] = tb1.getValueAt(indexs[i], 1);
                 //row[2] = tb1.getValueAt(indexs[i], 2);
                 String manhanvien = tb1.getValueAt(indexs[i], 0).toString();
-                String tenphong = cboPhong.getSelectedItem().toString();
+                
                 if(cn.CheckChucVu_TruyenMaNhanvien(manhanvien) != 3){
                     cn.DeleteNhanVienRaKhoiPhong_FormPhong(manhanvien,tenphong);
                     // show lại 2 table sao khi delete
@@ -405,10 +410,9 @@ public class FormPhong extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Xóa Nhân Viên Thành Công");
                 }else if(cn.CheckChucVu_TruyenMaNhanvien(manhanvien) == 0) JOptionPane.showMessageDialog(null, "Lỗi");
                 else JOptionPane.showMessageDialog(null, "Không Thể Xóa Leader");
-                
-    //            tb2.addRow(row);
-    //            tb.removeRow(indexs[i]);
             }
+            }
+            
         } catch (SQLException ex) {
                 Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -427,12 +431,13 @@ public class FormPhong extends javax.swing.JFrame {
             cn.AddNhanVienVaoPhong(chuoi,tenphong);
             cn.tableshownhanvien_FormPhong(modelshownhanvien, tenphong);
             cn.tableluunhanvien_FormPhong(modelluunhanvien, tenphong);
+            JOptionPane.showMessageDialog(null, "Lưu Thành Công");
         } catch (SQLException ex) {
             Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCreateRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateRoomActionPerformed
         try {
             FormCreateRoom fcr = new FormCreateRoom();
             ChucNang cn = new ChucNang();
@@ -443,20 +448,25 @@ public class FormPhong extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCreateRoomActionPerformed
 
     private void btnTimKiemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemNhanVienActionPerformed
-       String chuoi = txttimkiem.getText();
+        try {
+        String chuoi = txttimkiem.getText();
         modelshownhanvien();
         ChucNang cn = new ChucNang();
+        String tenphong = (String) cboPhong.getSelectedItem(); // lấy tên phòng để tìm leader
         if (chuoi.equals("")) { // trống thì xuất hết
-            cn.shownhanvien_Admin(modelshownhanvien);
+            cn.tableshownhanvien_FormPhong(modelshownhanvien,tenphong);
         }else {
-            if(cn.KiemTraKieuDuLieuCuaChuoi(chuoi) == 1)  cn.SearchNhanVienTheoMa(modelshownhanvien,chuoi);
-            else if(cn.KiemTraKieuDuLieuCuaChuoi(chuoi) == 2) cn.SearchNhanVienTheoTen(modelshownhanvien,chuoi);
+            if(cn.KiemTraKieuDuLieuCuaChuoi(chuoi) == 1)  cn.SearchNhanVienTheoMa_CoMaPhong(modelshownhanvien,chuoi,tenphong);
+            else if(cn.KiemTraKieuDuLieuCuaChuoi(chuoi) == 2) cn.SearchNhanVienTheoTen_CoMaPhong(modelshownhanvien,chuoi,tenphong);
             else if(cn.KiemTraKieuDuLieuCuaChuoi(chuoi) == 3) 
                 JOptionPane.showMessageDialog(null, "Bạn chỉ có thể nhập số hoặc chữ\n Tìm theo mã : Nhập Số \n Tìm theo tên : Nhập Tên");
             txttimkiem.setText("");
+        }
+        } catch (SQLException ex) {
+            Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnTimKiemNhanVienActionPerformed
 
@@ -522,11 +532,11 @@ public class FormPhong extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAdd;
     private javax.swing.JButton btnBack;
+    private javax.swing.JButton btnCreateRoom;
     private javax.swing.JButton btnDelete;
     private javax.swing.JButton btnSave;
     private javax.swing.JButton btnTimKiemNhanVien;
     private javax.swing.JComboBox<String> cboPhong;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;

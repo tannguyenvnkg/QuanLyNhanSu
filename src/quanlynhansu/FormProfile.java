@@ -107,16 +107,16 @@ public class FormProfile extends javax.swing.JFrame {
         rdbnu.setText("Nữ");
         rdbnu.setEnabled(false);
 
+        txtdiachi.setEditable(false);
         txtdiachi.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        txtdiachi.setEnabled(false);
         txtdiachi.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtdiachiActionPerformed(evt);
             }
         });
 
+        txtsdt.setEditable(false);
         txtsdt.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        txtsdt.setEnabled(false);
 
         jLabel3.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel3.setText("Họ Tên :");
@@ -124,23 +124,23 @@ public class FormProfile extends javax.swing.JFrame {
         jLabel17.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel17.setText("Mã Nhân Sự :");
 
+        txtmanhanvien.setEditable(false);
         txtmanhanvien.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        txtmanhanvien.setEnabled(false);
 
+        txtten.setEditable(false);
         txtten.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        txtten.setEnabled(false);
 
         jLabel4.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel4.setText("Ngày Sinh :");
 
+        txtngaysinh.setEditable(false);
         txtngaysinh.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        txtngaysinh.setEnabled(false);
 
         jLabel35.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel35.setText("Chức Vụ :");
 
+        txtidchucvu.setEditable(false);
         txtidchucvu.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        txtidchucvu.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -488,7 +488,7 @@ public class FormProfile extends javax.swing.JFrame {
            //<editor-fold defaultstate="collapsed" desc=" Mở Form ">
            ChangePassword cp = new ChangePassword();
            cp.setVisible(true);
-           //dispose();
+           dispose();
            //</editor-fold>
     }//GEN-LAST:event_btnchangepasswordActionPerformed
 
@@ -548,20 +548,6 @@ public class FormProfile extends javax.swing.JFrame {
         txtten.setText(tennhanvien);
         txtngaysinh.setText(ngaysinh.toString());
         txtidchucvu.setText(tenchucvu);
-//        switch (idchucvu) {
-//            case 1:
-//                txtidchucvu.setText("Admin");
-//                break;
-//            case 2:
-//                txtidchucvu.setText("Project Manager");
-//                break;
-//            case 3:
-//                txtidchucvu.setText("Leader");
-//                break;
-//            default:
-//                txtidchucvu.setText("Nhân Viên");
-//                break;
-//        }
         if(gioitinh) rdbnam.setSelected(true);
         else rdbnu.setSelected(true);
         txtdiachi.setText(diachi);

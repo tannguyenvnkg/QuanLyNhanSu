@@ -133,6 +133,8 @@ public class NhanSu extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel1.setText("Mã Nhân Viên :");
 
+        txtmanhanvien.setEditable(false);
+
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel2.setText("Giới Tính :");
 
@@ -490,7 +492,7 @@ public class NhanSu extends javax.swing.JFrame {
         try {
             enable();
             model();
-            txtmanhanvien.disable();
+            //txtmanhanvien.disable();
             txtngaysinh.enable();;
             int a = tablenhanvien.getSelectedRow();
             txtmanhanvien.setText(model.getValueAt(a, 0).toString());
@@ -573,7 +575,7 @@ public class NhanSu extends javax.swing.JFrame {
     private void btnAddNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddNewActionPerformed
         enable();
         clear();
-        txtmanhanvien.disable();
+        //txtmanhanvien.disable();
     }//GEN-LAST:event_btnAddNewActionPerformed
 
     private void btnresetpasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnresetpasswordActionPerformed
@@ -632,7 +634,7 @@ public class NhanSu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txttimkiemKeyPressed
     public void clear(){
-        txtmanhanvien.disable();
+        //txtmanhanvien.disable();
         txtmanhanvien.setText("");
         txttennhanvien.setText(""); 
         txtsdt.setText(""); 
@@ -642,7 +644,7 @@ public class NhanSu extends javax.swing.JFrame {
         //cboChucVu.disable();
     }
     public void disable(){
-        txtmanhanvien.disable();
+        txtmanhanvien.setEditable(false);
 //        txttennhanvien.disable();
 //        txtsdt.disable();
 //        txtdiachi.disable();

@@ -8,6 +8,7 @@ package quanlynhansu;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -28,6 +29,7 @@ public class FormCreateRoom extends javax.swing.JFrame {
     public FormCreateRoom() {
         initComponents();
         tableLeader.setDefaultEditor(Object.class , null);
+        //txttenleader.setEditable(false);
     }
 
     /**
@@ -52,8 +54,8 @@ public class FormCreateRoom extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tableLeader = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        btnCreateRoom = new javax.swing.JButton();
+        btnExist = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -78,8 +80,8 @@ public class FormCreateRoom extends javax.swing.JFrame {
 
         txttenphong.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
 
+        txttenleader.setEditable(false);
         txttenleader.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        txttenleader.setEnabled(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -157,21 +159,21 @@ public class FormCreateRoom extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jButton1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-add-user-group-man-woman-30.png"))); // NOI18N
-        jButton1.setText("Tạo");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnCreateRoom.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        btnCreateRoom.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-add-user-group-man-woman-30.png"))); // NOI18N
+        btnCreateRoom.setText("Tạo");
+        btnCreateRoom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnCreateRoomActionPerformed(evt);
             }
         });
 
-        jButton2.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-cancel-30.png"))); // NOI18N
-        jButton2.setText("Hủy");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnExist.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
+        btnExist.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-cancel-30.png"))); // NOI18N
+        btnExist.setText("Hủy");
+        btnExist.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnExistActionPerformed(evt);
             }
         });
 
@@ -181,9 +183,9 @@ public class FormCreateRoom extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jButton1)
+                .addComponent(btnCreateRoom)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btnExist)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -191,8 +193,8 @@ public class FormCreateRoom extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(btnCreateRoom)
+                    .addComponent(btnExist))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -250,7 +252,7 @@ public class FormCreateRoom extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnCreateRoomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateRoomActionPerformed
         try {
             ChucNang cn = new ChucNang();
             model();
@@ -258,15 +260,21 @@ public class FormCreateRoom extends javax.swing.JFrame {
             String tenphong = txttenphong.getText();
             int a = tableLeader.getSelectedRow(); // dòng được chọn
             String maLeader = model.getValueAt(a, 0).toString();
-            cn.CreateRoom(maphong,tenphong,maLeader);
-            txtmaphong.setText("");
-            txttenphong.setText("");
-            txttenleader.setText("");
-            cn.showLeader(model);
+            if(maphong.equals("") || tenphong.equals("")){
+                JOptionPane.showMessageDialog(null, "Vui Lòng Điền Đầy Đủ Thông Tin");
+            }else {
+                cn.CreateRoom(maphong,tenphong,maLeader);
+                txtmaphong.setText("");
+                txttenphong.setText("");
+                txttenleader.setText("");
+                //cn.showLeader(model);
+            }
         } catch (SQLException ex) {
             Logger.getLogger(FormCreateRoom.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e){
+            if(txttenleader.getText().equals("")) JOptionPane.showMessageDialog(null, "Vui Lòng Chọn Leader");
         }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnCreateRoomActionPerformed
 
     private void tableLeaderMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableLeaderMouseClicked
         model();
@@ -274,7 +282,7 @@ public class FormCreateRoom extends javax.swing.JFrame {
         txttenleader.setText(model.getValueAt(a, 1).toString());
     }//GEN-LAST:event_tableLeaderMouseClicked
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnExistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExistActionPerformed
         try {
             ChucNang cn = new ChucNang();
             FormPhong fp = new FormPhong();
@@ -286,7 +294,7 @@ public class FormCreateRoom extends javax.swing.JFrame {
             Logger.getLogger(FormCreateRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnExistActionPerformed
 
     /**
      * @param args the command line arguments
@@ -324,8 +332,8 @@ public class FormCreateRoom extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btnCreateRoom;
+    private javax.swing.JButton btnExist;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
