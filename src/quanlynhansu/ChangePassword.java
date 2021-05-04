@@ -341,6 +341,7 @@ public class ChangePassword extends javax.swing.JFrame {
                      DialogError.setVisible(true);
                 }else if(cn.checkpass(pass)) {
                     if(cn.ChangePass(newpass, confirmpass)){
+                        DialogSuccess.setVisible(true);
                         FormProfile frmProfile = new FormProfile();
                         frmProfile.showProfile();
                         frmProfile.show();// đổi pass   
@@ -350,7 +351,7 @@ public class ChangePassword extends javax.swing.JFrame {
                 }                                             
                 else{     
                     DialogError.setVisible(true);
-                   JOptionPane.showMessageDialog(null, "Sai Mật Khẩu Cũ");  //check pass cũ sai
+//                   JOptionPane.showMessageDialog(null, "Sai Mật Khẩu Cũ");  //check pass cũ sai
                    clear();         
                 }            
         } catch (SQLException ex) {
