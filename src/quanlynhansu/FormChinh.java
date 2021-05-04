@@ -278,6 +278,8 @@ public class FormChinh extends javax.swing.JFrame {
             FormProfile frmProfile = new FormProfile();
             frmProfile.showProfile();
             frmProfile.show();
+            dispose();
+            
         } catch (SQLException ex) {
             Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
         }

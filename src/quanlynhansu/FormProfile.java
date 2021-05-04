@@ -493,6 +493,8 @@ public class FormProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_btnchangepasswordActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
+        FormChinh fc = new  FormChinh();
+        fc.show();
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
             
