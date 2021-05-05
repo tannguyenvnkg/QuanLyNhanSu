@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package quanlynhansu;
+package Room;
 
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -12,6 +12,8 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
+import Main.ChucNang;
+import Main.FormChinh;
 
 /**
  *
@@ -20,7 +22,7 @@ import javax.swing.table.DefaultTableModel;
 public class FormChangeLeader extends javax.swing.JFrame {
 
     //<editor-fold defaultstate="collapsed" desc=" Khởi Tạo Model combobox ">
-    DefaultComboBoxModel comboBoxModel = null;
+    public DefaultComboBoxModel comboBoxModel = null;
     public DefaultComboBoxModel comboBoxModel(){
         return comboBoxModel = (DefaultComboBoxModel)cboPhong.getModel();
     }
@@ -168,7 +170,6 @@ public class FormChangeLeader extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(11, 11, 11)))
-                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtNewLeader, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))

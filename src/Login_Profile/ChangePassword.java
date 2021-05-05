@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package quanlynhansu;
+package Login_Profile;
 
+import Login_Profile.FormProfile;
 import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import Main.ChucNang;
+import Main.FormChinh;
 
 /**
  *

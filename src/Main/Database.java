@@ -1,4 +1,4 @@
-package quanlynhansu;
+package Main;
 
 import static java.lang.Character.UnicodeBlock.forName;
 import java.sql.*;

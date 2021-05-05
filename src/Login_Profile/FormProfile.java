@@ -3,11 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package quanlynhansu;
+package Login_Profile;
 
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import Main.ChucNang;
+import Main.FormChinh;
+import Main.NhanVien;
 
 /**
  *

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package quanlynhansu;
+package Login_Profile;
 
 import com.placeholder.PlaceHolder;
 import static java.lang.Thread.sleep;
@@ -18,6 +18,8 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import javax.swing.Action;
 import javax.swing.Timer;
+import Main.ChucNang;
+import Main.FormChinh;
 
 /**
  *

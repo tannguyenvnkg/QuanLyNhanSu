@@ -3,13 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package quanlynhansu;
+package Room;
 
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import Main.ChucNang;
 
 /**
  *
@@ -18,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 public class FormCreateRoom extends javax.swing.JFrame {
 
     //<editor-fold defaultstate="collapsed" desc=" Khởi Tạo Model Table ">
-    DefaultTableModel model = null;
+    public DefaultTableModel model = null;
     public DefaultTableModel model(){
         return  model = (DefaultTableModel)tableLeader.getModel();
     }

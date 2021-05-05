@@ -6,7 +6,7 @@
 
 //<editor-fold defaultstate="collapsed" desc="Ghi Chú">
 //</editor-fold>
-package quanlynhansu;
+package Main;
 
 
 import java.sql.Date;

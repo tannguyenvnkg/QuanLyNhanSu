@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package quanlynhansu;
+package Room;
 
+import Room.FormCreateRoom;
 import java.awt.Color;
 import java.awt.Font;
 import java.sql.SQLException;
@@ -17,6 +18,8 @@ import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
+import Main.ChucNang;
+import Main.FormChinh;
 
 /**
  *
@@ -25,17 +28,17 @@ import javax.swing.table.TableModel;
 public class FormPhong extends javax.swing.JFrame {
     
     //<editor-fold defaultstate="collapsed" desc=" Khởi Tạo Model combobox ">
-    DefaultComboBoxModel comboBoxModel = null;
+    public DefaultComboBoxModel comboBoxModel = null;
     public DefaultComboBoxModel comboBoxModel(){
         return comboBoxModel = (DefaultComboBoxModel)cboPhong.getModel();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc=" Khởi Tạo Model Table ">
-    DefaultTableModel modelshownhanvien = null;
+    public DefaultTableModel modelshownhanvien = null;
     public DefaultTableModel modelshownhanvien(){
         return modelshownhanvien = (DefaultTableModel)tableshownhanvien.getModel();
     }
-     DefaultTableModel modelluunhanvien = null;
+    public DefaultTableModel modelluunhanvien = null;
     public DefaultTableModel modelluunhanvien(){
         return modelluunhanvien = (DefaultTableModel)tableluunhanvien.getModel();
     }
