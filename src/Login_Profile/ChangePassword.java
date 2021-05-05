@@ -340,11 +340,11 @@ public class ChangePassword extends javax.swing.JFrame {
                 String newpass = txtNewPass.getText();
                 String confirmpass = txtConfirmNewPass.getText();
                 if (pass.equals("") || newpass.equals("") || confirmpass.equals("")) {
-//                   JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin !!!"); //check thông tin trống
-                     DialogError.setVisible(true);
+//                    JOptionPane.showMessageDialog(null, "Vui lòng nhập đầy đủ thông tin !!!"); //check thông tin trống
+                       DialogError.setVisible(true);
                 }else if(cn.checkpass(pass)) {
                     if(cn.ChangePass(newpass, confirmpass)){
-                        DialogSuccess.setVisible(true);
+                       DialogSuccess.setVisible(true);
                         FormProfile frmProfile = new FormProfile();
                         frmProfile.showProfile();
                         frmProfile.show();// đổi pass   
