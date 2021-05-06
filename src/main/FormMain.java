@@ -1,7 +1,7 @@
 
 package main;
 
-import project.FormDuAn;
+import project.FormProject;
 import room.FormPhong;
 import room.FormChangeLeader;
 import login.profile.FormProfile;
@@ -330,7 +330,7 @@ public class FormMain extends javax.swing.JFrame {
     }//GEN-LAST:event_MnItNSActionPerformed
 
     private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
-        FormDuAn frmDuAn = new FormDuAn();
+        FormProject frmDuAn = new FormProject();
         frmDuAn.show();
         dispose();
     }//GEN-LAST:event_jMenuItem11ActionPerformed
