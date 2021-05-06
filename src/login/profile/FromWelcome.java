@@ -33,6 +33,7 @@ public class FromWelcome extends javax.swing.JFrame {
         btnWelcome = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Login");
         setResizable(false);
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
