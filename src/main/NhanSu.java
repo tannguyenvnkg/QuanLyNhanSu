@@ -611,7 +611,7 @@ public class NhanSu extends javax.swing.JFrame {
         //<editor-fold defaultstate="collapsed" desc="Xác Nhận Đóng Form ">
         int x = JOptionPane.showConfirmDialog(this, "Bạn muốn quay lại?","Thông báo",JOptionPane.YES_NO_OPTION);
         if (x == JOptionPane.YES_OPTION) {
-            FormChinh frmC = new FormChinh();
+            FormMain frmC = new FormMain();
             frmC.setVisible(true);
             dispose();
         }

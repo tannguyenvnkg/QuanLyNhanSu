@@ -12,7 +12,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import main.ChucNang;
-import main.FormChinh;
+import main.FormMain;
 
 /**
  *
@@ -371,7 +371,7 @@ public class FormChangePassword extends javax.swing.JFrame {
             frmProfile.show();
             dispose();
         } catch (SQLException ex) {
-            Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnExitActionPerformed
     private void txtConfirmNewPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtConfirmNewPassActionPerformed

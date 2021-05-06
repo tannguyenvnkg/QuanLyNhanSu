@@ -12,10 +12,10 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import project.FormCreateProject;
 
-public class FormChinh extends javax.swing.JFrame {
+public class FormMain extends javax.swing.JFrame {
 
 
-    public FormChinh() {
+    public FormMain() {
         initComponents();
         if(NhanVien.getInstance().getMachucvu()== 1) miCreateProject.setVisible(false);
     }
@@ -289,7 +289,7 @@ public class FormChinh extends javax.swing.JFrame {
             dispose();
             
         } catch (SQLException ex) {
-            Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_MnItThongTinActionPerformed
 
@@ -325,7 +325,7 @@ public class FormChinh extends javax.swing.JFrame {
                 ns.disable();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_MnItNSActionPerformed
 
@@ -349,7 +349,7 @@ public class FormChinh extends javax.swing.JFrame {
                 dispose();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
         }
             
     }//GEN-LAST:event_jMenuItem12ActionPerformed
@@ -378,7 +378,7 @@ public class FormChinh extends javax.swing.JFrame {
             frmCL.show();
             dispose();
         } catch (SQLException ex) {
-            Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
@@ -389,7 +389,7 @@ public class FormChinh extends javax.swing.JFrame {
             fcp.show();
             dispose();
         } catch (SQLException ex) {
-            Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_miCreateProjectActionPerformed
 
@@ -410,21 +410,23 @@ public class FormChinh extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormChinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormChinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormChinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormChinh.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormMain.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormChinh().setVisible(true);
+                new FormMain().setVisible(true);
             }
         });
     }

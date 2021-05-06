@@ -5,7 +5,7 @@
  */
 package messagebox;
 
-import main.FormChinh;
+import main.FormMain;
 import javax.swing.JOptionPane;
 
 /**

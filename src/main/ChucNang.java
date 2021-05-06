@@ -6,7 +6,7 @@
 //<editor-fold defaultstate="collapsed" desc="Ghi Chú">
 //</editor-fold>
 package main;
-
+import messagebox.*;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
@@ -87,7 +87,7 @@ public class ChucNang extends Database{
                 }
 
             } catch (SQLException ex) {
-                Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
             }      
     }
     public void shownhanvien_PM(DefaultTableModel modeltemp){
@@ -127,7 +127,7 @@ public class ChucNang extends Database{
                 }
 
             } catch (SQLException ex) {
-                Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
             }      
     }
     public void shownhanvien(DefaultTableModel model) throws SQLException{
@@ -185,7 +185,7 @@ public class ChucNang extends Database{
                 }
 
             } catch (SQLException ex) {
-                Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
             }      
     }
     public void SearchNhanVienTheoTen(DefaultTableModel modeltemp,String tennhanvien){
@@ -220,7 +220,7 @@ public class ChucNang extends Database{
                 }
 
             } catch (SQLException ex) {
-                Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormMain.class.getName()).log(Level.SEVERE, null, ex);
             }      
     }
     //</editor-fold>

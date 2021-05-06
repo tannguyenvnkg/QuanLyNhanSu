@@ -9,7 +9,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 import main.ChucNang;
-import main.FormChinh;
+import main.FormMain;
 import main.NhanVien;
 
 /**
@@ -496,7 +496,7 @@ public class FormProfile extends javax.swing.JFrame {
     }//GEN-LAST:event_btnchangepasswordActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        FormChinh fc = new  FormChinh();
+        FormMain fc = new  FormMain();
         fc.show();
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed

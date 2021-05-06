@@ -19,7 +19,7 @@ import java.sql.SQLException;
 import javax.swing.Action;
 import javax.swing.Timer;
 import main.ChucNang;
-import main.FormChinh;
+import main.FormMain;
 
 /**
  *
@@ -49,7 +49,7 @@ public class FormLogin extends javax.swing.JFrame {
                 }else{
                        t.stop();
 //                       JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
-//                       FormChinh frmC = new FormChinh();
+//                       FormMain frmC = new FormMain();
 //                       frmC.setVisible(true);
 //                       dispose();
                        }
@@ -258,7 +258,7 @@ public class FormLogin extends javax.swing.JFrame {
                 else if(cn.checktrangthai()){ // check trạng thái nhân viên
                     //t.start();
                     JOptionPane.showMessageDialog(rootPane, "Đăng nhập thành công","Thông báo",JOptionPane.INFORMATION_MESSAGE);
-                    FormChinh frmC = new FormChinh();
+                    FormMain frmC = new FormMain();
                     frmC.setVisible(true);
                     dispose();
                  }else JOptionPane.showMessageDialog(null, "Tài Khoản Đang Bị Khóa");

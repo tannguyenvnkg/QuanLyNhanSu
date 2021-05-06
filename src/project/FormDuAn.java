@@ -8,7 +8,7 @@ package project;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import main.FormChinh;
+import main.FormMain;
 
 /**
  *
@@ -323,7 +323,7 @@ public class FormDuAn extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        FormChinh frmChinh = new FormChinh();
+        FormMain frmChinh = new FormMain();
         frmChinh.show();
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed

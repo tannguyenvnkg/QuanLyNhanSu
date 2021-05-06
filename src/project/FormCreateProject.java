@@ -13,7 +13,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.DefaultComboBoxModel;
 import main.ChucNang;
-import main.FormChinh;
+import main.FormMain;
 import messagebox.MessageBox;
 
 /**
@@ -158,16 +158,15 @@ public class FormCreateProject extends javax.swing.JFrame {
     private void btnCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCreateProjectActionPerformed
         ChucNang cn = new ChucNang();
         String projectStartingDate = "";
-        String projectName = "";
-        String descriptionProject = "";
-        String roomName = "";
+        String projectName = txtProjectName.getText();
+        String descriptionProject = txtDescription.getText();
+        String roomName = cboPhong.getSelectedItem().toString();
         try {
-            projectName = txtProjectName.getName();
-            projectStartingDate = date.format(txtProjectStartingDate.getDate());
-            descriptionProject = txtDescription.getText();
-            roomName = cboPhong.getSelectedItem().toString();
-            cn.createProject(projectName,projectStartingDate,roomName,descriptionProject);
-            MessageBox.showMessageBox().showSuccess("Tạo Dự Án Thành Công!!!");
+            if(!projectName.equals("")){ // check tên dự án không được null
+                projectStartingDate = date.format(txtProjectStartingDate.getDate());
+                cn.createProject(projectName,projectStartingDate,roomName,descriptionProject);
+                MessageBox.showMessageBox().showSuccess("Tạo Dự Án Thành Công!!!");
+            }else MessageBox.showMessageBox().showError("Tên Dự Án Không Được Để Trống");
         }catch (Exception e) {
             if(projectStartingDate.equals("")) MessageBox.showMessageBox().showError("Bạn Chưa Điền Ngày Bắt Đầu Dự Án!!!");
             if(descriptionProject.length()>4000) MessageBox.showMessageBox().showError("Nội Dung Miêu Tả Giới Hạn là 4000 ký tự");
@@ -175,8 +174,8 @@ public class FormCreateProject extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCreateProjectActionPerformed
 
     private void btnExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExitActionPerformed
-        FormChinh frmChinh = new FormChinh();
-        frmChinh.show();
+        FormMain frmMain = new FormMain();
+        frmMain.show();
         dispose();
     }//GEN-LAST:event_btnExitActionPerformed
 

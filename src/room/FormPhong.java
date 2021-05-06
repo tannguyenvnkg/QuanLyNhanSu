@@ -19,7 +19,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.TableModel;
 import main.ChucNang;
-import main.FormChinh;
+import main.FormMain;
 
 /**
  *
@@ -392,7 +392,7 @@ public class FormPhong extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        FormChinh frmChinh = new FormChinh();
+        FormMain frmChinh = new FormMain();
         frmChinh.show();
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed

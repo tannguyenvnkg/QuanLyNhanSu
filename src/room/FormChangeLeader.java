@@ -13,7 +13,7 @@ import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import main.ChucNang;
-import main.FormChinh;
+import main.FormMain;
 
 /**
  *
@@ -308,7 +308,7 @@ public class FormChangeLeader extends javax.swing.JFrame {
     }//GEN-LAST:event_tableLeaderMouseClicked
 
     private void btnBackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBackActionPerformed
-        FormChinh frmChinh = new FormChinh();
+        FormMain frmChinh = new FormMain();
         frmChinh.show();
         dispose();
     }//GEN-LAST:event_btnBackActionPerformed
