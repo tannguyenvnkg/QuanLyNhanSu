@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Login_Profile;
+package login.profile;
 
 import com.placeholder.PlaceHolder;
 import static java.lang.Thread.sleep;
@@ -18,19 +18,19 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.SQLException;
 import javax.swing.Action;
 import javax.swing.Timer;
-import Main.ChucNang;
-import Main.FormChinh;
+import main.ChucNang;
+import main.FormChinh;
 
 /**
  *
  * @author Admin
  */
-public class Login extends javax.swing.JFrame {
+public class FormLogin extends javax.swing.JFrame {
 
   public Timer t;
   public ActionListener al;
   PlaceHolder p1; 
-    public Login() {
+    public FormLogin() {
            initComponents();
      //      ============================================================
      //<editor-fold defaultstate="collapsed" desc=" PlaceHolder "> 
@@ -252,7 +252,7 @@ public class Login extends javax.swing.JFrame {
             {
                 if (cn.FirstLogin(user,pass)) {
                     JOptionPane.showMessageDialog(null, "Bạn Phải Đổi Mật Khẩu Ở Lần Đăng Nhập Đầu Tiên");
-                    ChangePassword cp = new ChangePassword();
+                    FormChangePassword cp = new FormChangePassword();
                     cp.show();
                 }
                 else if(cn.checktrangthai()){ // check trạng thái nhân viên
@@ -266,9 +266,9 @@ public class Login extends javax.swing.JFrame {
              JOptionPane.showMessageDialog(null, "Sai Tài Khoản Hoặc Mật Khẩu !!!");
             }
             } catch (SQLException ex) {
-                      Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+                      Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
             } catch (NoSuchAlgorithmException ex) {
-          Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+          Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
       }
     }//GEN-LAST:event_btnDangNhapActionPerformed
    
@@ -289,21 +289,23 @@ public class Login extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormLogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Login().setVisible(true);
+                new FormLogin().setVisible(true);
             }
         });
     }

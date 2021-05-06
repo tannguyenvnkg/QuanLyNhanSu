@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Login_Profile;
+package login.profile;
 
 import java.sql.Date;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
-import Main.ChucNang;
-import Main.FormChinh;
-import Main.NhanVien;
+import main.ChucNang;
+import main.FormChinh;
+import main.NhanVien;
 
 /**
  *
@@ -489,7 +489,7 @@ public class FormProfile extends javax.swing.JFrame {
 
     private void btnchangepasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnchangepasswordActionPerformed
            //<editor-fold defaultstate="collapsed" desc=" Mở Form ">
-           ChangePassword cp = new ChangePassword();
+           FormChangePassword cp = new FormChangePassword();
            cp.setVisible(true);
            dispose();
            //</editor-fold>

@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Login_Profile;
+package login.profile;
 
 /**
  *
@@ -12,7 +12,7 @@ package Login_Profile;
 public class FromWelcome extends javax.swing.JFrame {
 
     /**
-     * Creates new form Login
+     * Creates new form FormLogin
      */
     public FromWelcome() {
         initComponents();
@@ -97,7 +97,7 @@ public class FromWelcome extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnWelcomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnWelcomeActionPerformed
-       Login frmlogin = new Login();
+       FormLogin frmlogin = new FormLogin();
        frmlogin.setVisible(true);
        this.setVisible(false);
     }//GEN-LAST:event_btnWelcomeActionPerformed
