@@ -95,13 +95,13 @@ public class FormLogin extends javax.swing.JFrame {
 
         username.setBackground(new java.awt.Color(214, 255, 255));
         username.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        username.setText("AD1");
+        username.setText("181478");
         username.setToolTipText("Nhập tài khoản vào dây.");
         username.setBorder(null);
 
         password.setBackground(new java.awt.Color(214, 255, 255));
         password.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        password.setText("AD2");
+        password.setText("1");
         password.setToolTipText("Nhập mật khẩu vào đây.");
         password.setBorder(null);
 

@@ -415,7 +415,7 @@ public class ChucNang extends Database{
         }
         return kytuhientai;
     }
-    public String getMaphong(String tenphong) throws SQLException{
+    public String getRoomID(String tenphong) throws SQLException{
             connect();
             String query = "select maphong from phong where tenphong = N'"+tenphong+"'";
             ResultSet rs = stmt.executeQuery(query);
@@ -426,7 +426,7 @@ public class ChucNang extends Database{
         }
     public String getMaleader(String tenphong) throws SQLException{
             connect();
-            String maphong = getMaphong(tenphong);
+            String maphong = getRoomID(tenphong);
             String query = "select manhanvien from phong where maphong = '"+maphong+"'";
             ResultSet rs = stmt.executeQuery(query);
             while (rs.next()) {                
@@ -458,7 +458,7 @@ public class ChucNang extends Database{
         }
         public void DeleteNhanVienRaKhoiPhong_FormPhong(String manhanvien,String tenphong) throws SQLException{
             connect();
-            String maphong = getMaphong(tenphong);
+            String maphong = getRoomID(tenphong);
             String query = "update THOIGIANNHANPHONG\n" +
                             "set ngayroiphong = CURRENT_TIMESTAMP\n" +
                             "where manhanvien = N'"+manhanvien+"' and maphong = '"+maphong+"'";
@@ -491,7 +491,7 @@ public class ChucNang extends Database{
                 return true;
             }
             public void AddNhanVienVaoPhong(ArrayList<String> chuoimanhanvien, String tenphong) throws SQLException{
-                String maphong = getMaphong(tenphong); // lấy mã phòng từ tên phòng
+                String maphong = getRoomID(tenphong); // lấy mã phòng từ tên phòng
                 for (String obj : chuoimanhanvien){
                     nhanphong(obj, maphong);
                 }
@@ -502,7 +502,7 @@ public class ChucNang extends Database{
             //<editor-fold defaultstate="collapsed" desc="Xuất nhân viên vào 2 jtable">
             public void tableshownhanvien_FormPhong(DefaultTableModel model, String tenphong) throws SQLException{
                 connect();
-                String maphong = getMaphong(tenphong);
+                String maphong = getRoomID(tenphong);
                 String query = "select distinct nv.manhanvien,tennhanvien,machucvu\n" +
                                 "from nhanvien nv\n" +
                                 "where machucvu > 3 and manhanvien not in \n" +
@@ -522,7 +522,7 @@ public class ChucNang extends Database{
             }
             public void tableluunhanvien_FormPhong(DefaultTableModel model, String tenphong) throws SQLException{
                 connect();
-                String maphong = getMaphong(tenphong);
+                String maphong = getRoomID(tenphong);
                 String query = "select distinct nv.manhanvien,tennhanvien,machucvu\n" +
                                 "from nhanvien nv\n" +
                                 "where machucvu > 2 and manhanvien in \n" +
@@ -544,7 +544,7 @@ public class ChucNang extends Database{
             //<editor-fold defaultstate="collapsed" desc="Tìm Kiếm Nhân Viên">
             public void SearchNhanVienTheoMa_CoMaPhong(DefaultTableModel modeltemp,String manhanvien,String tenphong) throws SQLException{
                 connect();
-                String maphong = getMaphong(tenphong);
+                String maphong = getRoomID(tenphong);
                 String query = "exec TimNhanVienTheoMa_CoMaPhong '"+manhanvien+"','"+maphong+"'";
                 ResultSet rs = stmt.executeQuery(query);
                 modeltemp.setRowCount(0); // set số dòng bằng 0
@@ -558,7 +558,7 @@ public class ChucNang extends Database{
             }
             public void SearchNhanVienTheoTen_CoMaPhong(DefaultTableModel modeltemp,String tennhanvien,String tenphong) throws SQLException{
                 connect();
-                String maphong = getMaphong(tenphong);
+                String maphong = getRoomID(tenphong);
                 String query = "exec TimNhanVienTheoTen_CoMaPhong N'"+tennhanvien+"','"+maphong+"'";
                 ResultSet rs = stmt.executeQuery(query);
                 modeltemp.setRowCount(0); // set số dòng bằng 0
@@ -615,7 +615,7 @@ public class ChucNang extends Database{
     //<editor-fold defaultstate="collapsed" desc="Form Đổi Leader Phòng">
         public void ShowLeader_FormChangeLeader(DefaultTableModel model, String tenphong) throws SQLException{
             connect();
-            String maphong = getMaphong(tenphong);
+            String maphong = getRoomID(tenphong);
             String query = "select distinct nv.manhanvien,tennhanvien,machucvu\n" +
                             "from nhanvien nv\n" +
                             "where machucvu = 3 and manhanvien not in \n" +
@@ -635,7 +635,7 @@ public class ChucNang extends Database{
         }
         public void ChangeRoomLeader_FormChangeLeader(String manhanvien, String tenphong) throws SQLException{
             connect();
-            String maphong = getMaphong(tenphong); // lấy mã phòng
+            String maphong = getRoomID(tenphong); // lấy mã phòng
             String OldLeaderID = getMaleader(tenphong); // lẫy mã leader cũ
             DeleteNhanVienRaKhoiPhong_FormPhong(OldLeaderID, tenphong); // delete Leader cũ (thêm ngày rời phòng)
             LeaderNhanPhongMoi(manhanvien,maphong); // add leader mới (add vào table phòng)
@@ -649,6 +649,28 @@ public class ChucNang extends Database{
         stmt.execute(query);
         }
         
+    //</editor-fold>
+    //</editor-fold>
+    //==========================================================================================================
+    //<editor-fold defaultstate="collapsed" desc="Dự Án">
+    //<editor-fold defaultstate="collapsed" desc="Tạo Dự Án">
+        public int getCountProject() throws SQLException{
+            connect();
+            String query = "select count(*) from duan";
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {                
+                return rs.getInt(1);
+            }
+            return 0;
+        }
+        public void createProject(String projectName,String projectStartingDate,String roomName,String descriptionProject) throws SQLException{
+            String projectID = String.valueOf(getCountProject() + 1); // đếm số lượng dự án và tăng lên 1
+            String userLoginID = NhanVien.getInstance().getManhanvien(); 
+            String roomID = getRoomID(roomName);
+            connect();
+            String query = "insert into DUAN values('"+projectID+"',N'"+projectName+"','"+userLoginID+"',N'"+descriptionProject+"','"+projectStartingDate+"',null,0,'"+roomID+"')";
+            stmt.execute(query);
+        }
     //</editor-fold>
     //</editor-fold>
 }

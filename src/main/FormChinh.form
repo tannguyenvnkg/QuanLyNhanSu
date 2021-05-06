@@ -171,10 +171,13 @@
             </Property>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem10">
+            <MenuItem class="javax.swing.JMenuItem" name="miCreateProject">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Th&#xea;m Nh&#xe2;n S&#x1ef1;"/>
+                <Property name="text" type="java.lang.String" value="T&#x1ea1;o D&#x1ef1; &#xc1;n"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="miCreateProjectActionPerformed"/>
+              </Events>
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItem11">
               <Properties>

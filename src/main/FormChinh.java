@@ -1,6 +1,7 @@
 
 package main;
 
+import project.FormDuAn;
 import room.FormPhong;
 import room.FormChangeLeader;
 import login.profile.FormProfile;
@@ -9,16 +10,14 @@ import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import project.FormCreateProject;
 
 public class FormChinh extends javax.swing.JFrame {
 
 
     public FormChinh() {
         initComponents();
-//        mePM.setVisible(false);
-//        meLD.setVisible(false);
-//        meAD.setVisible(false);
-        
+        if(NhanVien.getInstance().getMachucvu()== 1) miCreateProject.setVisible(false);
     }
   
     /**
@@ -47,7 +46,7 @@ public class FormChinh extends javax.swing.JFrame {
         jMenuItem9 = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
         MnPM = new javax.swing.JMenu();
-        jMenuItem10 = new javax.swing.JMenuItem();
+        miCreateProject = new javax.swing.JMenuItem();
         jMenuItem11 = new javax.swing.JMenuItem();
         jMenuItem5 = new javax.swing.JMenuItem();
         MnAdmin = new javax.swing.JMenu();
@@ -164,8 +163,13 @@ public class FormChinh extends javax.swing.JFrame {
         MnPM.setText(" PM  ");
         MnPM.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
 
-        jMenuItem10.setText("Thêm Nhân Sự");
-        MnPM.add(jMenuItem10);
+        miCreateProject.setText("Tạo Dự Án");
+        miCreateProject.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miCreateProjectActionPerformed(evt);
+            }
+        });
+        MnPM.add(miCreateProject);
 
         jMenuItem11.setText("Danh Sách Dự Án");
         jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
@@ -378,6 +382,17 @@ public class FormChinh extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jMenuItem13ActionPerformed
 
+    private void miCreateProjectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miCreateProjectActionPerformed
+        try {
+            FormCreateProject fcp;
+            fcp = new FormCreateProject();
+            fcp.show();
+            dispose();
+        } catch (SQLException ex) {
+            Logger.getLogger(FormChinh.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_miCreateProjectActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -429,7 +444,6 @@ public class FormChinh extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu7;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
-    private javax.swing.JMenuItem jMenuItem10;
     private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem12;
     private javax.swing.JMenuItem jMenuItem13;
@@ -447,5 +461,6 @@ public class FormChinh extends javax.swing.JFrame {
     private javax.swing.JPopupMenu.Separator jSeparator1;
     private javax.swing.JPopupMenu.Separator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
+    private javax.swing.JMenuItem miCreateProject;
     // End of variables declaration//GEN-END:variables
 }
