@@ -302,8 +302,8 @@ public class FormCreateRoom extends javax.swing.JFrame {
     private void btnExistActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExistActionPerformed
         try {
             ChucNang cn = new ChucNang();
-            FormPhong fp = new FormPhong();
-            fp.comboBoxModel();
+            FormRoom fp = new FormRoom();
+            fp.getComboBoxModel();
             cn.showcomboboxphong(fp.comboBoxModel);
             fp.show();
             dispose();

@@ -25,40 +25,40 @@ import main.FormMain;
  *
  * @author tanng
  */
-public class FormPhong extends javax.swing.JFrame {
+public class FormRoom extends javax.swing.JFrame {
     
     //<editor-fold defaultstate="collapsed" desc=" Khởi Tạo Model combobox ">
     public DefaultComboBoxModel comboBoxModel = null;
-    public DefaultComboBoxModel comboBoxModel(){
+    public DefaultComboBoxModel getComboBoxModel(){
         return comboBoxModel = (DefaultComboBoxModel)cboPhong.getModel();
     }
     //</editor-fold>
     //<editor-fold defaultstate="collapsed" desc=" Khởi Tạo Model Table ">
-    public DefaultTableModel modelshownhanvien = null;
-    public DefaultTableModel modelshownhanvien(){
-        return modelshownhanvien = (DefaultTableModel)tableshownhanvien.getModel();
+    public DefaultTableModel modelShowStaff_OutRoom = null;
+    public DefaultTableModel getModelShowNhanVien(){
+        return modelShowStaff_OutRoom = (DefaultTableModel)tableShowStaff_OutRoom.getModel();
     }
-    public DefaultTableModel modelluunhanvien = null;
-    public DefaultTableModel modelluunhanvien(){
-        return modelluunhanvien = (DefaultTableModel)tableluunhanvien.getModel();
+    public DefaultTableModel modelShowStaff_InRoom = null;
+    public DefaultTableModel getModelLuuNhanVien(){
+        return modelShowStaff_InRoom = (DefaultTableModel)tableShowStaff_InRoom.getModel();
     }
 //</editor-fold>
     /**
      * Creates new form FormCreateProject
      */
-    public FormPhong() {
+    public FormRoom() {
         initComponents();
-        tableshownhanvien.setDefaultEditor(Object.class , null); // không được phép sửa trên jtable
-        tableluunhanvien.setDefaultEditor(Object.class , null);
-        tableshownhanvien.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // chỉ được phép chọn 1 dòng trong Jtable
-        tableluunhanvien.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        tableShowStaff_OutRoom.setDefaultEditor(Object.class , null); // không được phép sửa trên jtable
+        tableShowStaff_InRoom.setDefaultEditor(Object.class , null);
+        tableShowStaff_OutRoom.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // chỉ được phép chọn 1 dòng trong Jtable
+        tableShowStaff_InRoom.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         //txtLeader.setEditable(false);
-        JTableHeader header = tableluunhanvien.getTableHeader();    
+        JTableHeader header = tableShowStaff_InRoom.getTableHeader();    
         header.setForeground(Color.black);
         header.setBackground(Color.red);
         header.setFont(new Font("Times New Roman", Font.BOLD , 18));
         
-        JTableHeader theader = tableshownhanvien.getTableHeader();    
+        JTableHeader theader = tableShowStaff_OutRoom.getTableHeader();    
         theader.setForeground(Color.black);
         theader.setBackground(Color.red);
         theader.setFont(new Font("Times New Roman", Font.BOLD , 18));
@@ -77,13 +77,13 @@ public class FormPhong extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tableshownhanvien = new javax.swing.JTable();
+        tableShowStaff_OutRoom = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         btnAdd = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnSave = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tableluunhanvien = new javax.swing.JTable();
+        tableShowStaff_InRoom = new javax.swing.JTable();
         btnBack = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         btnCreateRoom = new javax.swing.JButton();
@@ -106,7 +106,7 @@ public class FormPhong extends javax.swing.JFrame {
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
 
-        tableshownhanvien.setModel(new javax.swing.table.DefaultTableModel(
+        tableShowStaff_OutRoom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -114,8 +114,8 @@ public class FormPhong extends javax.swing.JFrame {
                 "Mã Nhân Viên", "Tên Nhân Viên"
             }
         ));
-        tableshownhanvien.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(tableshownhanvien);
+        tableShowStaff_OutRoom.getTableHeader().setReorderingAllowed(false);
+        jScrollPane1.setViewportView(tableShowStaff_OutRoom);
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -169,7 +169,7 @@ public class FormPhong extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        tableluunhanvien.setModel(new javax.swing.table.DefaultTableModel(
+        tableShowStaff_InRoom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -177,8 +177,8 @@ public class FormPhong extends javax.swing.JFrame {
                 "Mã Nhân Viên", "Tên Nhân Viên"
             }
         ));
-        tableluunhanvien.getTableHeader().setReorderingAllowed(false);
-        jScrollPane2.setViewportView(tableluunhanvien);
+        tableShowStaff_InRoom.getTableHeader().setReorderingAllowed(false);
+        jScrollPane2.setViewportView(tableShowStaff_InRoom);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -398,11 +398,11 @@ public class FormPhong extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBackActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
-        modelshownhanvien();
-        TableModel tb1 = tableshownhanvien.getModel();
-        DefaultTableModel tb2 = (DefaultTableModel)tableluunhanvien.getModel();
+        getModelShowNhanVien();
+        TableModel tb1 = tableShowStaff_OutRoom.getModel();
+        DefaultTableModel tb2 = (DefaultTableModel)tableShowStaff_InRoom.getModel();
         
-        int indexs[] = tableshownhanvien.getSelectedRows();
+        int indexs[] = tableShowStaff_OutRoom.getSelectedRows();
         
         Object[] row = new Object[3];
         for (int i = 0; i < indexs.length; i++) {
@@ -411,7 +411,7 @@ public class FormPhong extends javax.swing.JFrame {
             //row[2] = tb1.getValueAt(indexs[i], 2);
             
             tb2.addRow(row);
-            modelshownhanvien.removeRow(indexs[i]);
+            modelShowStaff_OutRoom.removeRow(indexs[i]);
         }
     }//GEN-LAST:event_btnAddActionPerformed
 
@@ -420,11 +420,11 @@ public class FormPhong extends javax.swing.JFrame {
 //        DefaultTableModel tb = (DefaultTableModel)tableluunhanvien.getModel();
 //        DefaultTableModel tb2 = (DefaultTableModel)tableshownhanvien.getModel();
 
-            modelshownhanvien();
-            modelluunhanvien();
-            TableModel tb1 = tableluunhanvien.getModel();
+            getModelShowNhanVien();
+            getModelLuuNhanVien();
+            TableModel tb1 = tableShowStaff_InRoom.getModel();
             ChucNang cn = new ChucNang();
-            int indexs[] = tableluunhanvien.getSelectedRows();
+            int indexs[] = tableShowStaff_InRoom.getSelectedRows();
             String tennhanvien = tb1.getValueAt(indexs[0], 1).toString();
             String tenphong = cboPhong.getSelectedItem().toString();
             int dialogButton = JOptionPane.YES_NO_OPTION;
@@ -440,8 +440,8 @@ public class FormPhong extends javax.swing.JFrame {
                 if(cn.CheckChucVu_TruyenMaNhanvien(manhanvien) != 3){
                     cn.DeleteNhanVienRaKhoiPhong_FormPhong(manhanvien,tenphong);
                     // show lại 2 table sao khi delete
-                    cn.tableshownhanvien_FormPhong(modelshownhanvien, tenphong);
-                    cn.tableluunhanvien_FormPhong(modelluunhanvien, tenphong);
+                    cn.showStaffInRoom_OutRoom(modelShowStaff_OutRoom, tenphong);
+                    cn.showStaffInRoom_InRoom(modelShowStaff_InRoom, tenphong);
                     JOptionPane.showMessageDialog(null, "Xóa Nhân Viên Thành Công");
                 }else if(cn.CheckChucVu_TruyenMaNhanvien(manhanvien) == 0) JOptionPane.showMessageDialog(null, "Lỗi");
                 else JOptionPane.showMessageDialog(null, "Không Thể Xóa Leader");
@@ -449,26 +449,26 @@ public class FormPhong extends javax.swing.JFrame {
             }
             
         } catch (SQLException ex) {
-                Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(FormRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
         try {
-            modelluunhanvien();
-            modelshownhanvien();
+            getModelLuuNhanVien();
+            getModelShowNhanVien();
             String tenphong = cboPhong.getSelectedItem().toString();
             ChucNang cn = new ChucNang();
             ArrayList<String> chuoi = new ArrayList<String>();
-            for (int i = 0; i < modelluunhanvien.getRowCount(); i++) {
-                chuoi.add(modelluunhanvien.getValueAt(i, 0).toString());
+            for (int i = 0; i < modelShowStaff_InRoom.getRowCount(); i++) {
+                chuoi.add(modelShowStaff_InRoom.getValueAt(i, 0).toString());
             }
             cn.AddNhanVienVaoPhong(chuoi,tenphong);
-            cn.tableshownhanvien_FormPhong(modelshownhanvien, tenphong);
-            cn.tableluunhanvien_FormPhong(modelluunhanvien, tenphong);
+            cn.showStaffInRoom_OutRoom(modelShowStaff_OutRoom, tenphong);
+            cn.showStaffInRoom_InRoom(modelShowStaff_InRoom, tenphong);
             JOptionPane.showMessageDialog(null, "Lưu Thành Công");
         } catch (SQLException ex) {
-            Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSaveActionPerformed
 
@@ -481,27 +481,27 @@ public class FormPhong extends javax.swing.JFrame {
             cn.showLeader(fcr.model);
             dispose();
         } catch (SQLException ex) {
-            Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnCreateRoomActionPerformed
 
     private void btnTimKiemNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTimKiemNhanVienActionPerformed
         try {
         String chuoi = txttimkiem.getText();
-        modelshownhanvien();
+        getModelShowNhanVien();
         ChucNang cn = new ChucNang();
         String tenphong = (String) cboPhong.getSelectedItem(); // lấy tên phòng để tìm leader
         if (chuoi.equals("")) { // trống thì xuất hết
-            cn.tableshownhanvien_FormPhong(modelshownhanvien,tenphong);
+            cn.showStaffInRoom_OutRoom(modelShowStaff_OutRoom,tenphong);
         }else {
-            if(cn.KiemTraKieuDuLieuCuaChuoi(chuoi) == 1)  cn.SearchNhanVienTheoMa_CoMaPhong(modelshownhanvien,chuoi,tenphong);
-            else if(cn.KiemTraKieuDuLieuCuaChuoi(chuoi) == 2) cn.SearchNhanVienTheoTen_CoMaPhong(modelshownhanvien,chuoi,tenphong);
+            if(cn.KiemTraKieuDuLieuCuaChuoi(chuoi) == 1)  cn.SearchNhanVienTheoMa_CoMaPhong(modelShowStaff_OutRoom,chuoi,tenphong);
+            else if(cn.KiemTraKieuDuLieuCuaChuoi(chuoi) == 2) cn.SearchNhanVienTheoTen_CoMaPhong(modelShowStaff_OutRoom,chuoi,tenphong);
             else if(cn.KiemTraKieuDuLieuCuaChuoi(chuoi) == 3) 
                 JOptionPane.showMessageDialog(null, "Bạn chỉ có thể nhập số hoặc chữ\n Tìm theo mã : Nhập Số \n Tìm theo tên : Nhập Tên");
             txttimkiem.setText("");
         }
         } catch (SQLException ex) {
-            Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnTimKiemNhanVienActionPerformed
 
@@ -516,15 +516,15 @@ public class FormPhong extends javax.swing.JFrame {
     private void cboPhongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboPhongActionPerformed
        try {
             ChucNang cn = new ChucNang();
-            String tenphong = (String) cboPhong.getSelectedItem(); // lấy tên phòng để tìm leader
-            txtLeader.setText(cn.TenLeader(tenphong)); // set tên leader cho text
+            String roomName = (String) cboPhong.getSelectedItem(); // lấy tên phòng để tìm leader
+            txtLeader.setText(cn.TenLeader(roomName)); // set tên leader cho text
             
-            modelshownhanvien();
-            modelluunhanvien();
-            cn.tableshownhanvien_FormPhong(modelshownhanvien,tenphong);
-            cn.tableluunhanvien_FormPhong(modelluunhanvien,tenphong);
+            getModelShowNhanVien();
+            getModelLuuNhanVien();
+            cn.showStaffInRoom_OutRoom(modelShowStaff_OutRoom,roomName);
+            cn.showStaffInRoom_InRoom(modelShowStaff_InRoom,roomName);
         } catch (SQLException ex) {
-            Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_cboPhongActionPerformed
 
@@ -545,21 +545,23 @@ public class FormPhong extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FormPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FormPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FormPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FormPhong.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(FormRoom.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FormPhong().setVisible(true);
+                new FormRoom().setVisible(true);
             }
         });
     }
@@ -583,8 +585,8 @@ public class FormPhong extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable tableluunhanvien;
-    private javax.swing.JTable tableshownhanvien;
+    private javax.swing.JTable tableShowStaff_InRoom;
+    private javax.swing.JTable tableShowStaff_OutRoom;
     private javax.swing.JTextField txtLeader;
     private javax.swing.JTextField txttimkiem;
     // End of variables declaration//GEN-END:variables

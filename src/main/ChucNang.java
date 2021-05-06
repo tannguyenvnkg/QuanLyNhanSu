@@ -500,7 +500,7 @@ public class ChucNang extends Database{
 
             //</editor-fold>
             //<editor-fold defaultstate="collapsed" desc="Xuất nhân viên vào 2 jtable">
-            public void tableshownhanvien_FormPhong(DefaultTableModel model, String tenphong) throws SQLException{
+            public void showStaffInRoom_OutRoom(DefaultTableModel model, String tenphong) throws SQLException{
                 connect();
                 String maphong = getRoomID(tenphong);
                 String query = "select distinct nv.manhanvien,tennhanvien,machucvu\n" +
@@ -520,7 +520,7 @@ public class ChucNang extends Database{
                     model.addRow(dataString);
                 }
             }
-            public void tableluunhanvien_FormPhong(DefaultTableModel model, String tenphong) throws SQLException{
+            public void showStaffInRoom_InRoom(DefaultTableModel model, String tenphong) throws SQLException{
                 connect();
                 String maphong = getRoomID(tenphong);
                 String query = "select distinct nv.manhanvien,tennhanvien,machucvu\n" +

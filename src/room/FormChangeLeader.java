@@ -297,7 +297,7 @@ public class FormChangeLeader extends javax.swing.JFrame {
             model();
             cn.ShowLeader_FormChangeLeader(model,tenphong);
         } catch (SQLException ex) {
-            Logger.getLogger(FormPhong.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(FormRoom.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_cboPhongActionPerformed
 

@@ -34,8 +34,8 @@ public class FormLogin extends javax.swing.JFrame {
            initComponents();
      //      ============================================================
      //<editor-fold defaultstate="collapsed" desc=" PlaceHolder "> 
-           p1 = new PlaceHolder(username, "Nhập Username");
-           p1 = new PlaceHolder(password, "Nhập Password");
+           p1 = new PlaceHolder(txtUsername, "Nhập Username");
+           p1 = new PlaceHolder(txtPassword, "Nhập Password");
            jPanel1.setFocusable(true);
      //</editor-fold>
      //      ============================================================      
@@ -70,11 +70,12 @@ public class FormLogin extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        username = new javax.swing.JTextField();
-        password = new javax.swing.JPasswordField();
+        txtUsername = new javax.swing.JTextField();
+        txtPassword = new javax.swing.JPasswordField();
         btnDangNhap = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
         jSeparator2 = new javax.swing.JSeparator();
+        cboChooseRole = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         PBar = new javax.swing.JProgressBar();
@@ -93,17 +94,17 @@ public class FormLogin extends javax.swing.JFrame {
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-key-2-50.png"))); // NOI18N
 
-        username.setBackground(new java.awt.Color(214, 255, 255));
-        username.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        username.setText("181478");
-        username.setToolTipText("Nhập tài khoản vào dây.");
-        username.setBorder(null);
+        txtUsername.setBackground(new java.awt.Color(214, 255, 255));
+        txtUsername.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        txtUsername.setText("AD1");
+        txtUsername.setToolTipText("Nhập tài khoản vào dây.");
+        txtUsername.setBorder(null);
 
-        password.setBackground(new java.awt.Color(214, 255, 255));
-        password.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
-        password.setText("1");
-        password.setToolTipText("Nhập mật khẩu vào đây.");
-        password.setBorder(null);
+        txtPassword.setBackground(new java.awt.Color(214, 255, 255));
+        txtPassword.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
+        txtPassword.setText("AD2");
+        txtPassword.setToolTipText("Nhập mật khẩu vào đây.");
+        txtPassword.setBorder(null);
 
         btnDangNhap.setBackground(new java.awt.Color(255, 255, 255));
         btnDangNhap.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
@@ -119,27 +120,35 @@ public class FormLogin extends javax.swing.JFrame {
 
         jSeparator2.setForeground(new java.awt.Color(0, 0, 0));
 
+        cboChooseRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "admin", "pm", "leader", "staff" }));
+        cboChooseRole.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboChooseRoleActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap(53, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel2))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jSeparator1)
-                            .addComponent(username)
-                            .addComponent(jSeparator2)
-                            .addComponent(password, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
-                        .addGap(96, 96, 96))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnDangNhap)
-                        .addGap(33, 33, 33))))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel2))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jSeparator1)
+                    .addComponent(txtUsername)
+                    .addComponent(jSeparator2)
+                    .addComponent(txtPassword, javax.swing.GroupLayout.DEFAULT_SIZE, 207, Short.MAX_VALUE))
+                .addGap(96, 96, 96))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(34, 34, 34)
+                .addComponent(cboChooseRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnDangNhap)
+                .addGap(33, 33, 33))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -147,19 +156,21 @@ public class FormLogin extends javax.swing.JFrame {
                 .addGap(40, 40, 40)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtUsername, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(password, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                .addComponent(btnDangNhap)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnDangNhap, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cboChooseRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
 
@@ -245,8 +256,8 @@ public class FormLogin extends javax.swing.JFrame {
     
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         try {          
-            String user = username.getText();
-            String pass = password.getText();
+            String user = txtUsername.getText();
+            String pass = txtPassword.getText();
             ChucNang cn = new ChucNang();
             if(cn.login(user,pass)) // check nhanvien
             {
@@ -271,6 +282,24 @@ public class FormLogin extends javax.swing.JFrame {
           Logger.getLogger(FormLogin.class.getName()).log(Level.SEVERE, null, ex);
       }
     }//GEN-LAST:event_btnDangNhapActionPerformed
+
+    private void cboChooseRoleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboChooseRoleActionPerformed
+           if(cboChooseRole.getSelectedItem().toString().equals("admin")){
+               txtUsername.setText("AD1");
+               txtPassword.setText("AD2");
+           }else if(cboChooseRole.getSelectedItem().toString().equals("pm")){
+               txtUsername.setText("156709");
+               txtPassword.setText("pm");
+           }
+           else if(cboChooseRole.getSelectedItem().toString().equals("leader")){
+               txtUsername.setText("181478");
+               txtPassword.setText("1");
+           }
+           else if(cboChooseRole.getSelectedItem().toString().equals("staff")){
+               txtUsername.setText("202707");
+               txtPassword.setText("staff");
+           }
+    }//GEN-LAST:event_cboChooseRoleActionPerformed
    
     /**
      * @param args the command line arguments
@@ -313,6 +342,7 @@ public class FormLogin extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar PBar;
     private javax.swing.JButton btnDangNhap;
+    private javax.swing.JComboBox<String> cboChooseRole;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -322,7 +352,7 @@ public class FormLogin extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
-    private javax.swing.JPasswordField password;
-    private javax.swing.JTextField username;
+    private javax.swing.JPasswordField txtPassword;
+    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }
