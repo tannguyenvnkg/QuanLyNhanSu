@@ -262,7 +262,7 @@ public class FormLogin extends javax.swing.JFrame {
             if(cn.login(user,pass)) // check nhanvien
             {
                 if (cn.FirstLogin(user,pass)) {
-                    JOptionPane.showMessageDialog(null, "Bạn Phải Đổi Mật Khẩu Ở Lần Đăng Nhập Đầu Tiên");
+                    JOptionPane.showMessageDialog(null, "Bạn Phải Đổi Mật Khẩu Ở Lần Đăng Nhập Đầu Tiên Nha");
                     FormChangePassword cp = new FormChangePassword();
                     cp.show();
                 }
