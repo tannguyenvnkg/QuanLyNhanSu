@@ -128,13 +128,12 @@ public class NhanSu extends javax.swing.JFrame {
         jLabel1.setText("Mã Nhân Viên :");
 
         txtmanhanvien.setEditable(false);
-        txtmanhanvien.setBackground(new java.awt.Color(236, 255, 255));
+        txtmanhanvien.setBackground(new java.awt.Color(255, 255, 255));
         txtmanhanvien.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel2.setText("Giới Tính :");
 
-        txttennhanvien.setBackground(new java.awt.Color(236, 255, 255));
         txttennhanvien.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         txttennhanvien.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {

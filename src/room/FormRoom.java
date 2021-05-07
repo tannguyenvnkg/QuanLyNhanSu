@@ -98,14 +98,16 @@ public class FormRoom extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jPanel1.setBackground(new java.awt.Color(236, 255, 255));
+        jPanel1.setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 36)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 0, 51));
         jLabel8.setText("Quản Lý Phòng");
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel3.setBackground(new java.awt.Color(204, 255, 204));
 
+        tableShowStaff_OutRoom.setBackground(new java.awt.Color(236, 255, 255));
+        tableShowStaff_OutRoom.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         tableShowStaff_OutRoom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -114,10 +116,13 @@ public class FormRoom extends javax.swing.JFrame {
                 "Mã Nhân Viên", "Tên Nhân Viên"
             }
         ));
+        tableShowStaff_OutRoom.setGridColor(new java.awt.Color(0, 0, 0));
+        tableShowStaff_OutRoom.setSelectionBackground(new java.awt.Color(153, 255, 255));
+        tableShowStaff_OutRoom.setSelectionForeground(new java.awt.Color(255, 0, 0));
         tableShowStaff_OutRoom.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(tableShowStaff_OutRoom);
 
-        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
         btnAdd.setBackground(new java.awt.Color(255, 255, 255));
         btnAdd.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
@@ -169,6 +174,8 @@ public class FormRoom extends javax.swing.JFrame {
                 .addComponent(btnSave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        tableShowStaff_InRoom.setBackground(new java.awt.Color(236, 255, 255));
+        tableShowStaff_InRoom.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         tableShowStaff_InRoom.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -177,6 +184,9 @@ public class FormRoom extends javax.swing.JFrame {
                 "Mã Nhân Viên", "Tên Nhân Viên"
             }
         ));
+        tableShowStaff_InRoom.setGridColor(new java.awt.Color(0, 0, 0));
+        tableShowStaff_InRoom.setSelectionBackground(new java.awt.Color(153, 255, 255));
+        tableShowStaff_InRoom.setSelectionForeground(new java.awt.Color(255, 0, 0));
         tableShowStaff_InRoom.getTableHeader().setReorderingAllowed(false);
         jScrollPane2.setViewportView(tableShowStaff_InRoom);
 
@@ -217,7 +227,7 @@ public class FormRoom extends javax.swing.JFrame {
             }
         });
 
-        jPanel4.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel4.setBackground(new java.awt.Color(204, 255, 204));
 
         btnCreateRoom.setBackground(new java.awt.Color(255, 255, 255));
         btnCreateRoom.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
@@ -264,13 +274,13 @@ public class FormRoom extends javax.swing.JFrame {
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cboPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cboPhong, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
-                    .addComponent(btnCreateRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnCreateRoom, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel5.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel5.setBackground(new java.awt.Color(204, 255, 204));
 
         btnTimKiemNhanVien.setBackground(new java.awt.Color(255, 255, 255));
         btnTimKiemNhanVien.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
@@ -298,12 +308,12 @@ public class FormRoom extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnTimKiemNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txttimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnTimKiemNhanVien, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txttimkiem, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
-        jPanel6.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel6.setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 0, 16)); // NOI18N
         jLabel1.setText("Leader :");
@@ -326,7 +336,7 @@ public class FormRoom extends javax.swing.JFrame {
             .addGroup(jPanel6Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtLeader, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtLeader, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );

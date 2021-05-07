@@ -88,19 +88,19 @@ public class FormLogin extends javax.swing.JFrame {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-among-us-100.png"))); // NOI18N
 
-        jPanel2.setBackground(new java.awt.Color(214, 255, 255));
+        jPanel2.setBackground(new java.awt.Color(204, 255, 204));
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Avartar/icons8-account-50.png"))); // NOI18N
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/Favorites/Edit/icons8-key-2-50.png"))); // NOI18N
 
-        txtUsername.setBackground(new java.awt.Color(214, 255, 255));
+        txtUsername.setBackground(new java.awt.Color(204, 255, 204));
         txtUsername.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         txtUsername.setText("AD1");
         txtUsername.setToolTipText("Nhập tài khoản vào dây.");
         txtUsername.setBorder(null);
 
-        txtPassword.setBackground(new java.awt.Color(214, 255, 255));
+        txtPassword.setBackground(new java.awt.Color(204, 255, 204));
         txtPassword.setFont(new java.awt.Font("Times New Roman", 1, 16)); // NOI18N
         txtPassword.setText("AD2");
         txtPassword.setToolTipText("Nhập mật khẩu vào đây.");
@@ -145,7 +145,7 @@ public class FormLogin extends javax.swing.JFrame {
                 .addGap(96, 96, 96))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
-                .addComponent(cboChooseRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cboChooseRole, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnDangNhap)
                 .addGap(33, 33, 33))
@@ -167,10 +167,10 @@ public class FormLogin extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnDangNhap, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(cboChooseRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cboChooseRole, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
         );
 
